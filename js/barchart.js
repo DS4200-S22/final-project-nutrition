@@ -149,27 +149,6 @@ const tooltip1 = d3.select("#csv-bar")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// TBD
 // Create svg shage
 const svg5 = d3
   .select("#vis-container")
@@ -177,13 +156,3 @@ const svg5 = d3
   .attr("width", width-margin.left-margin.right)
   .attr("height", height - margin.top - margin.bottom)
   .attr("viewBox", [0, 0, width, height]);
-
-//
-
-
-// Import and display data in console
-// d3.csv('/data/clean_nutrition_df.csv').then((data) => {
-//   for (var i = 0; i < 10; i++) {
-//       console.log(data[i]);
-//   }
-// });

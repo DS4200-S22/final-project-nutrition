@@ -87,6 +87,15 @@ const mouseleave4 = function(event, d) {
 }
 
 
+
+
+
+
+
+
+
+
+
 //SCATTERPLOT 1
 // Append svg object to the body of the page to house Scatterplot1
 const svg2 = d3.select("#csv-scatter1")
