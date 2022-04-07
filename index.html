@@ -45,7 +45,7 @@
 
 <!-- Visualization -->
 <h1>Visualization</h1>
-
+<div class="d3-geomap" id="map"></div>
 <div class="vis-holder" id="csv-scatter1"></div>
 <div class="vis-holder" id="csv-scatter2"></div>
 <div class="vis-holder" id="csv-scatter3"></div>
@@ -103,6 +103,8 @@
 
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src='lib/d3.v6.1.1/d3.min.js'></script>
+  <script src="//unpkg.com/topojson@3/dist/topojson.min.js"></script>
+  <script src="lib/d3-geomap/d3-geomap.min.js"></script>
   <script src='js/visualization.js'></script>
 </body>
 </html>
