@@ -1,38 +1,22 @@
-// Set dimensions and margins for plots
-const width = 1200;
-const height = 600;
-const margin = {left:250, right:50, bottom:50, top:50};
-const yTooltipOffset = 15;
-
 //Bar Chart
+const widthbar = 1200;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
 
 const svg1 = d3.select("#csv-bar")
               .append("svg")
-              .attr("width", width+marginbar.left+marginbar.right)
+              .attr("width", widthbar+marginbar.left+marginbar.right)
               .attr("height", heightbar + marginbar.top + marginbar.bottom)
               .append("g")
               .style("margin-top", "10px")
               .attr("transform", "translate("+marginbar.left + "," + marginbar.top + ")");
 
 
-// d3.csv("/data/clean_nutrition_df.csv").then((data) => {
       // Add x-axis
       let x = d3.scaleLinear()
-                // .domain([0, d3.max(data, function(d) {return d.cost_nutrition})])
-                .range([0, width]);
+                .range([0, widthbar]);
       let xAxis = svg1.append("g")
                       .attr("class", "myXaxis")
-
-// maybe dont need this g stuff??
-
-      // let g = svg1.append("g")
-      //             .attr("transform", "translate(0," + heightbar + ")") //yaxis stuff?
-      //             .call(d3.axisBottom(x))
-      //             .selectAll("text")
-      //             .attr("transform", "translate(-10,0)rotate(-45)")
-      //             .style("text-anchor", "end");
 
        // Add y-axis
       let y = d3.scaleBand()
@@ -60,23 +44,23 @@ const tooltip1 = d3.select("#csv-bar")
 
 
 
-// const mouseover1 = function(event, d) {
-//     tooltip1.html(d.country_name + "<br>" + function(d) {return (d[selectedVar]); } + "<br>")
-//             .style("opacity", 1);
-// }
+const mouseover1 = function(event, d) {
+    tooltip1.html(d.country_name + "<br>" + function(d) {return (d[selectedVar]); } + "<br>")
+            .style("opacity", 1);
+}
 
 
 
-// const mousemove1 = function(event, d) {
-//     tooltip1.style("left", (event.x) + "px")
-//     .style("top", (event.y + yTooltipOffset) + "px");
-// }
+const mousemove1 = function(event, d) {
+    tooltip1.style("left", (event.x) + "px")
+    .style("top", (event.y + yTooltipOffset) + "px");
+}
 
 
 
-// const mouseleave1 = function(event, d) {
-//     tooltip1.style("opacity", 0);
-// }
+const mouseleave1 = function(event, d) {
+    tooltip1.style("opacity", 0);
+}
             let u = svg1.selectAll("rect")
                         .data(data)
 
@@ -87,35 +71,18 @@ const tooltip1 = d3.select("#csv-bar")
              .transition()
              .duration(1000)
              .attr("y", function(d) {return y(d.country_name); })
-             .attr("x", 0) //function(d) {return x(d[selectedVar]); })
-             .attr("width", function(d) {return x(d[selectedVar]); }) //do i need to have width -
+             .attr("x", 0)
+             .attr("width", function(d) {return x(d[selectedVar]); })
              .attr("height", y.bandwidth())
              .attr("fill", "#69b3a2")
 
-
-
-            //  svg1.append("g")
-            // .attr("class", "x axis")
-            // .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-heightbar]));
 
             svg1.append("g")
             .attr("class", "y axis")
             .call(d3.axisLeft(y));
 
 
-           //tried to add labels but not working :(
-
-            // u.append("text")
-            //  .attr("class", "label")
-            //  .attr("y", function(d) {
-            //     return y(d.country_name) y.bandwidth() / 2 + 4;
-            //  })
-            //  .attr("x", function(d) {
-            //     return x(d[selectedVar]) + 3;
-            //  })
-            //  .text(function(d) {
-            //     return d[selectedVar];
-            //  })
+    
 
         })
       }
@@ -135,24 +102,5 @@ const tooltip1 = d3.select("#csv-bar")
       //       .on("mousemove", mousemove1)
       //       .on("mouseleave", mouseleave1);
 
-      // g.append("g")
-      //   .attr("class", "x axis")
-      //   .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-heightbar]));
+    
 
-      // g.append("g")
-      //   .attr("class", "y axis")
-      //   .call(d3.axisLeft(y));
-
-      // svg1.append("g")
-      //     .call(d3.axisLeft(y));
-// });
-
-
-
-// Create svg shage
-const svg5 = d3
-  .select("#vis-container")
-  .append("svg")
-  .attr("width", width-margin.left-margin.right)
-  .attr("height", height - margin.top - margin.bottom)
-  .attr("viewBox", [0, 0, width, height]);
