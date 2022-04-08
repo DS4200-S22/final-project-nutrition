@@ -2,6 +2,7 @@
 const widthbar = 1200;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
+const yTooltipOffset2 = 15;
 
 const svg1 = d3.select("#csv-bar")
               .append("svg")
@@ -52,8 +53,8 @@ const mouseover1 = function(event, d) {
 
 
 const mousemove1 = function(event, d) {
-    tooltip1.style("bottom", (event.x) + "px")
-    .style("left", (event.y + yTooltipOffset) + "px");
+    tooltip1.style("left", (event.pageX) + "px")
+    .style("bottom", (event.pageY + yTooltipOffset2) + "px");
 }
 
 
@@ -61,13 +62,15 @@ const mousemove1 = function(event, d) {
 const mouseleave1 = function(event, d) {
     tooltip1.style("opacity", 0);
 }
-            let u = svg1.selectAll("rect")
+            
+
+let bars = svg1.selectAll("rect")
                         .data(data)
 
 
-            u.enter()
+            bars.enter()
              .append("rect")
-             .merge(u)
+             .merge(bars)
              .transition()
              .duration(1000)
              .attr("y", function(d) {return y(d.country_name); })
@@ -81,17 +84,35 @@ const mouseleave1 = function(event, d) {
             .attr("class", "y axis")
             .call(d3.axisLeft(y));
 
-            svg1.selectAll("rect")
+            
+          svg1.selectAll("rect")
             .on("mouseover", mouseover1)
             .on("mousemove", mousemove1)
             .on("mouseleave", mouseleave1);
-    
-            u.append("text")
-            .attr("x", function(d) {return widthbar - x(d[selectedVar]) - 15;})
-            .text(function(d) {
-              return d[selectedVar];
-            })
-            .style("fill", "black")
+
+             let text = svg1.append("text")
+                            .data(data)
+
+                            text.merge(text)
+                            .transition()
+                            .duration(1000)
+                            .attr("x", function(d) {return x(d[selectedVar]);})
+                            .attr("y", y.bandwidth())
+                            .text(function(d) {
+                              return d[selectedVar]
+                            })
+                            .style("fill", "black")
+
+
+            // svg1
+            // .append("text")
+            // .data(data)
+            // .attr("x", function(d) {return x(d[selectedVar]);})
+            // .attr("y", y.bandwidth())
+            // .text(function(d) {
+            //   return d[selectedVar];
+            // })
+            // .style("fill", "black")
         })
       }
 
