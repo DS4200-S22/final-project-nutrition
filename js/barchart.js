@@ -29,7 +29,7 @@ const svg1 = d3.select("#csv-bar")
 
       function update(selectedVar) {
 
-        d3.csv("/data/clean_nutrition_df.csv").then((data) => {
+d3.csv("data/clean_nutrition_df.csv").then((data) => {
             y.domain(data.map(function(d) {return d.country_name; }))
             // yAxis.transition().duration(1000).call(d3.axisLeft(y))
 
@@ -45,15 +45,15 @@ const tooltip1 = d3.select("#csv-bar")
 
 
 const mouseover1 = function(event, d) {
-    tooltip1.html(d.country_name + "<br>" + function(d) {return (d[selectedVar]); } + "<br>")
+    tooltip1.html("Country:" + d.country_name + "<br>" + function(d) {return (d[selectedVar])} + "<br>")
             .style("opacity", 1);
-}
+};
 
 
 
 const mousemove1 = function(event, d) {
-    tooltip1.style("left", (event.x) + "px")
-    .style("top", (event.y + yTooltipOffset) + "px");
+    tooltip1.style("bottom", (event.x) + "px")
+    .style("left", (event.y + yTooltipOffset) + "px");
 }
 
 
@@ -81,9 +81,17 @@ const mouseleave1 = function(event, d) {
             .attr("class", "y axis")
             .call(d3.axisLeft(y));
 
-
+            svg1.selectAll("rect")
+            .on("mouseover", mouseover1)
+            .on("mousemove", mousemove1)
+            .on("mouseleave", mouseleave1);
     
-
+            u.append("text")
+            .attr("x", function(d) {return widthbar - x(d[selectedVar]) - 15;})
+            .text(function(d) {
+              return d[selectedVar];
+            })
+            .style("fill", "black")
         })
       }
 

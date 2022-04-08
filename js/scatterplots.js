@@ -134,7 +134,7 @@ const color = d3.scaleOrdinal()
 
 
 
-d3.csv("/data/clean_nutrition_df.csv").then((data) => {
+d3.csv("data/clean_nutrition_df.csv").then((data) => {
 
     let x1, y1, x2, y2, x3, y3;
 
