@@ -1,5 +1,5 @@
 //Bar Chart
-const widthbar = 1200;
+const widthbar = 1000;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
 const yTooltipOffset2 = 15;

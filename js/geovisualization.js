@@ -4,7 +4,7 @@ var format = function(d) {
 }
 
 var map = d3.choropleth()
-    .geofile('/lib/d3-geomap/topojson/world/countries.json')
+    .geofile('lib/d3-geomap/topojson/world/countries.json')
     .colors(d3.schemeYlGnBu[9])
     .column('cost_nutrition')
     .duration(500)
