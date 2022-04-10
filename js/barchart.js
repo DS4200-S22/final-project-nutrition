@@ -1,38 +1,40 @@
+<<<<<<< HEAD
 // Set dimensions and margins for plots
 // const width = 1200;
 // const height = 600;
 // const margin = {left:250, right:50, bottom:50, top:50};
 // const yTooltipOffset = 15;
 
+=======
+>>>>>>> f8c89fa7b1e50717e9052b371f6f8b4f1b4737e9
 //Bar Chart
+const widthbar = 1000;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
+const yTooltipOffset2 = 15;
 
 const svg1 = d3.select("#csv-bar")
               .append("svg")
-              .attr("width", width+marginbar.left+marginbar.right)
+              .attr("width", widthbar+marginbar.left+marginbar.right)
               .attr("height", heightbar + marginbar.top + marginbar.bottom)
               .append("g")
               .style("margin-top", "10px")
               .attr("transform", "translate("+marginbar.left + "," + marginbar.top + ")");
 
 
-// d3.csv("/data/clean_nutrition_df.csv").then((data) => {
       // Add x-axis
+<<<<<<< HEAD
 let x = d3.scaleLinear()
                 // .domain([0, d3.max(data, function(d) {return d.cost_nutrition})])
           .range([0, width]);
 let xAxis = svg1.append("g")
                 .attr("class", "myXaxis")
-
-// maybe dont need this g stuff??
-
-      // let g = svg1.append("g")
-      //             .attr("transform", "translate(0," + heightbar + ")") //yaxis stuff?
-      //             .call(d3.axisBottom(x))
-      //             .selectAll("text")
-      //             .attr("transform", "translate(-10,0)rotate(-45)")
-      //             .style("text-anchor", "end");
+=======
+      let x = d3.scaleLinear()
+                .range([0, widthbar]);
+      let xAxis = svg1.append("g")
+                      .attr("class", "myXaxis")
+>>>>>>> f8c89fa7b1e50717e9052b371f6f8b4f1b4737e9
 
        // Add y-axis
 let y = d3.scaleBand()
@@ -45,9 +47,15 @@ let yAxis = svg1.append("g")
 
   function update(selectedVar) {
 
+<<<<<<< HEAD
     d3.csv("/data/clean_nutrition_df.csv").then((data) => {
         y.domain(data.map(function(d) {return d.country_name; }))
         // yAxis.transition().duration(1000).call(d3.axisLeft(y))
+=======
+d3.csv("data/clean_nutrition_df.csv").then((data) => {
+            y.domain(data.map(function(d) {return d.country_name; }))
+            // yAxis.transition().duration(1000).call(d3.axisLeft(y))
+>>>>>>> f8c89fa7b1e50717e9052b371f6f8b4f1b4737e9
 
         x.domain([0, d3.max(data, function(d) {return +d[selectedVar] }) ]);
         xAxis.transition().duration(1000).call(d3.axisTop(x));
@@ -60,20 +68,26 @@ const tooltip1 = d3.select("#csv-bar")
 
 
 
-// const mouseover1 = function(event, d) {
-//     tooltip1.html(d.country_name + "<br>" + function(d) {return (d[selectedVar]); } + "<br>")
-//             .style("opacity", 1);
-// }
+const mouseover1 = function(event, d) {
+    tooltip1.html("Country:" + d.country_name + "<br>" + function(d) {return (d[selectedVar])} + "<br>")
+            .style("opacity", 1);
+};
 
 
 
-// const mousemove1 = function(event, d) {
-//     tooltip1.style("left", (event.x) + "px")
-//     .style("top", (event.y + yTooltipOffset) + "px");
-// }
+const mousemove1 = function(event, d) {
+    tooltip1.style("left", (event.pageX) + "px")
+    .style("bottom", (event.pageY + yTooltipOffset2) + "px");
+}
 
 
 
+const mouseleave1 = function(event, d) {
+    tooltip1.style("opacity", 0);
+}
+            
+
+<<<<<<< HEAD
 // const mouseleave1 = function(event, d) {
 //     tooltip1.style("opacity", 0);
 // }
@@ -119,6 +133,59 @@ const tooltip1 = d3.select("#csv-bar")
 
     })
   }
+=======
+let bars = svg1.selectAll("rect")
+                        .data(data)
+
+
+            bars.enter()
+             .append("rect")
+             .merge(bars)
+             .transition()
+             .duration(1000)
+             .attr("y", function(d) {return y(d.country_name); })
+             .attr("x", 0)
+             .attr("width", function(d) {return x(d[selectedVar]); })
+             .attr("height", y.bandwidth())
+             .attr("fill", "#69b3a2")
+
+
+            svg1.append("g")
+            .attr("class", "y axis")
+            .call(d3.axisLeft(y));
+
+            
+          svg1.selectAll("rect")
+            .on("mouseover", mouseover1)
+            .on("mousemove", mousemove1)
+            .on("mouseleave", mouseleave1);
+
+             let text = svg1.append("text")
+                            .data(data)
+
+                            text.merge(text)
+                            .transition()
+                            .duration(1000)
+                            .attr("x", function(d) {return x(d[selectedVar]);})
+                            .attr("y", y.bandwidth())
+                            .text(function(d) {
+                              return d[selectedVar]
+                            })
+                            .style("fill", "black")
+
+
+            // svg1
+            // .append("text")
+            // .data(data)
+            // .attr("x", function(d) {return x(d[selectedVar]);})
+            // .attr("y", y.bandwidth())
+            // .text(function(d) {
+            //   return d[selectedVar];
+            // })
+            // .style("fill", "black")
+        })
+      }
+>>>>>>> f8c89fa7b1e50717e9052b371f6f8b4f1b4737e9
 
   update('cost_energy')
 
@@ -135,24 +202,5 @@ const tooltip1 = d3.select("#csv-bar")
       //       .on("mousemove", mousemove1)
       //       .on("mouseleave", mouseleave1);
 
-      // g.append("g")
-      //   .attr("class", "x axis")
-      //   .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-heightbar]));
+    
 
-      // g.append("g")
-      //   .attr("class", "y axis")
-      //   .call(d3.axisLeft(y));
-
-      // svg1.append("g")
-      //     .call(d3.axisLeft(y));
-// });
-
-
-
-// Create svg shage
-const svg5 = d3
-  .select("#vis-container")
-  .append("svg")
-  .attr("width", width-margin.left-margin.right)
-  .attr("height", height - margin.top - margin.bottom)
-  .attr("viewBox", [0, 0, width, height]);

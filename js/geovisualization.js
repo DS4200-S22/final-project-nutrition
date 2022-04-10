@@ -4,7 +4,7 @@ var format = function(d) {
 }
 
 var map = d3.choropleth()
-    .geofile('/lib/d3-geomap/topojson/world/countries.json')
+    .geofile('lib/d3-geomap/topojson/world/countries.json')
     .colors(d3.schemeYlGnBu[9])
     .column('cost_nutrition')
     .duration(500)
@@ -12,7 +12,7 @@ var map = d3.choropleth()
     .legend(true)
     .unitId('country_code');
 
-d3.csv('/data/cleaned_nutrition_df.csv').then(data => {
+d3.csv('data/cleaned_nutrition_df.csv').then(data => {
     var selection = d3.select('#map').datum(data);
     map.draw(selection);
 });

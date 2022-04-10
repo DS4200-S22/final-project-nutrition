@@ -104,8 +104,8 @@ const svg2 = d3.select("#csv-scatter1")
                   .attr("height", height - margin.top - margin.bottom)
                   .attr("viewBox", [0, 0, width, height]);
 
-let brush1;
-let myCircles1;
+// let brush1;
+// let myCircles1;
 
 //SCATTERPLOT 2
 const svg3 = d3.select("#csv-scatter2")
@@ -114,8 +114,8 @@ const svg3 = d3.select("#csv-scatter2")
                   .attr("height", height - margin.top - margin.bottom)
                   .attr("viewBox", [0, 0, width, height]);
 
-let brush2;
-let myCircles2;
+// let brush2;
+// let myCircles2;
 
 //SCATTERPLOT 3
 const svg4 = d3.select("#csv-scatter3")
@@ -124,8 +124,8 @@ const svg4 = d3.select("#csv-scatter3")
                 .attr("height", height - margin.top - margin.bottom)
                 .attr("viewBox", [0, 0, width, height]);
 
-let brush3;
-let myCircles3;
+// let brush3;
+// let myCircles3;
 
 
 const color = d3.scaleOrdinal()
@@ -134,7 +134,7 @@ const color = d3.scaleOrdinal()
 
 
 
-d3.csv("/data/clean_nutrition_df.csv").then((data) => {
+d3.csv("data/clean_nutrition_df.csv").then((data) => {
 
     let x1, y1, x2, y2, x3, y3;
 
@@ -150,7 +150,7 @@ d3.csv("/data/clean_nutrition_df.csv").then((data) => {
     let maxX1 = d3.max(data, (d) => { return d[xKey1]; });
 
     // scale the chart's x-value based off of size of data
-    let x1 = d3.scaleLinear()
+    x1 = d3.scaleLinear()
                 .domain([0, maxX1])
                 .range([margin.left, width - margin.right]);
 
@@ -168,11 +168,11 @@ d3.csv("/data/clean_nutrition_df.csv").then((data) => {
     );
 
     // set the max possible y/height value based on highest data score
-    let maxY1 = d3.max(data, (d) => { return d[yKey1]; });
+    let maxY1 = d3.max(data, (d) => { return d.percent_unafford_energy; });
 
     // scale the chart based off of previously defined maxmimum y value
-    let y1 = d3.scaleLinear()
-                .domain([0,maxY1])
+    y1 = d3.scaleLinear()
+                .domain([0, maxY1])
                 .range([height-margin.bottom,margin.top]);
 
     // add y-axis
@@ -194,18 +194,18 @@ d3.csv("/data/clean_nutrition_df.csv").then((data) => {
                    .append("circle")
                      .attr("cx", (d) => x1(d[xKey1]))
                      .attr("cy", (d) => y1(d[yKey1]))
-                     .attr("r", 5)
+                     .attr("r", 8)
                      .style("fill", (d) => color(d.income_classification_2017))
                      .attr("class", "SimpleScatter")
                    .on("mouseover", mouseover2) // Calls mouseover2 event listener and link to event handler
                    .on("mousemove", mousemove2) // Calls mousemove2 event listener and link to event handler
                    .on("mouseleave", mouseleave2); // Calls mouseleave2 event listener and link to event handler
 
-brush1 = d3.brush().extent([[0,0], [width, height]]);
+// brush1 = d3.brush().extent([[0,0], [width, height]]);
 
-svg2.call(brush1
-    .on("start", clear)
-    .on("brush", updateChart1));
+// svg2.call(brush1
+//     .on("start", clear)
+//     .on("brush", updateChart1));
 
 }
 
@@ -221,7 +221,7 @@ svg2.call(brush1
 
 
 // scale the chart's x-value based off of size of data
-    let x2 = d3.scaleLinear()
+    x2 = d3.scaleLinear()
                 .domain([0, maxX2])
                 .range([margin.left, width - margin.right]);
 
@@ -242,7 +242,7 @@ svg2.call(brush1
      });
 
     // scale the chart based off of previously defined maxmimum y value
-    let y2 = d3.scaleLinear()
+    y2 = d3.scaleLinear()
                 .domain([0,maxY2])
                 .range([height-margin.bottom,margin.top]);
 
@@ -266,7 +266,7 @@ svg2.call(brush1
        .append("circle")
          .attr("cx", (d) => x2(d[xKey2]))
          .attr("cy", (d) => y2(d[yKey2]))
-         .attr("r", 5)
+         .attr("r", 8)
          .style("fill", (d) => color(d.income_classification_2017))
          .attr("class", "SimpleScatter")
        .on("mouseover", mouseover3) // Calls mouseover3 event listener and link to event handler
@@ -274,11 +274,11 @@ svg2.call(brush1
        .on("mouseleave", mouseleave3);
 
 
-brush2 = d3.brush().extent([[0,0], [width, height]]);
+// brush2 = d3.brush().extent([[0,0], [width, height]]);
 
-svg3.call(brush2
-    .on("start", clear)
-    .on("brush", updateChart2));
+// svg3.call(brush2
+//     .on("start", clear)
+//     .on("brush", updateChart2));
 
 }
 
@@ -295,7 +295,7 @@ svg3.call(brush2
 
 
     // scale the chart's x-value based off of size of data
-    let x3 = d3.scaleLinear()
+    x3 = d3.scaleLinear()
                 .domain([0, maxX3])
                 .range([margin.left, width - margin.right]);
 
@@ -317,7 +317,7 @@ svg3.call(brush2
      });
 
     // scale the chart based off of previously defined maxmimum y value
-    let y3 = d3.scaleLinear()
+    y3 = d3.scaleLinear()
                 .domain([0,maxY3])
                 .range([height-margin.bottom,margin.top]);
 
@@ -341,104 +341,105 @@ svg3.call(brush2
        .append("circle")
          .attr("cx", (d) => x3(d[xKey3]))
          .attr("cy", (d) => y3(d[yKey3]))
-         .attr("r", 5)
+         .attr("r", 8)
          .style("fill", (d) => color(d.income_classification_2017))
          .attr("class", "SimpleScatter")
        .on("mouseover", mouseover4) // Calls mouseover4 event listener and link to event handler
        .on("mousemove", mousemove4) // Calls mousemove4 event listener and link to event handler
        .on("mouseleave", mouseleave4);
 
-    brush3 = d3.brush().extent([[0,0], [width, height]]);
+    // brush3 = d3.brush().extent([[0,0], [width, height]]);
 
-    svg4.call(brush3
-        .on("start", clear)
-        .on("brush", updateChart3));
+    // svg4.call(brush3
+    //     .on("start", clear)
+    //     .on("brush", updateChart3));
 }
 
 
 //Brushing code
 
-//call to remove existing brushes
-function clear() {
-    svg2.call(brush1.move, null);
-    svg3.call(brush2.move, null);
-    svg4.call(brush3.move, null);
-}
+// //call to remove existing brushes
+// function clear() {
+//     svg2.call(brush1.move, null);
+//     svg3.call(brush2.move, null);
+//     svg4.call(brush3.move, null);
+// }
 
-//call when scatterplot 1 is brushed
-function updateChart1(brushEvent) {
+// //call when scatterplot 1 is brushed
+// function updateChart1(brushEvent) {
 
-    //TODO: Find coordinates of brushed region
-    let coordinates = d3.brushSelection(this);
+//     //TODO: Find coordinates of brushed region
+//     let coordinates = d3.brushSelection(this);
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
-    myCircles1.classed("selected", function (d) {
-          return isBrushed(coordinates, x1(d.cost_energy), y1(d.percent_unafford_energy))
-       })
+//     //TODO: Give bold outline to all points within the brush region in Scatterplot1
+//     myCircles1.classed("selected", function (d) {
+//           return isBrushed(coordinates, x1(d.cost_energy), y1(d.percent_unafford_energy))
+//        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
-    myCircles2.classed("selected", function (d) {
-          return isBrushed(coordinates, x1(d.cost_nutrition), y1(d.percent_unafford_nutrition))
-       })
+//     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+//     myCircles2.classed("selected", function (d) {
+//           return isBrushed(coordinates, x1(d.cost_nutrition), y1(d.percent_unafford_nutrition))
+//        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
-    myCircles3.classed("selected", function (d) {
-          return isBrushed(coordinates, x1(d.cost_healthy), y1(d.percent_unafford_healthy))
-       })
-}
+//      //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+//     myCircles3.classed("selected", function (d) {
+//           return isBrushed(coordinates, x1(d.cost_healthy), y1(d.percent_unafford_healthy))
+//        })
+// }
 
-//call when scatterplot 2 is brushed
-function updateChart2(brushEvent) {
+// //call when scatterplot 2 is brushed
+// function updateChart2(brushEvent) {
 
-    //TODO: Find coordinates of brushed region
-    let coordinates = d3.brushSelection(this);
+//     //TODO: Find coordinates of brushed region
+//     let coordinates = d3.brushSelection(this);
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
-    myCircles1.classed("selected", function (d) {
-          return isBrushed(coordinates, x2(d.cost_energy), y2(d.percent_unafford_energy))
-       })
+//     //TODO: Give bold outline to all points within the brush region in Scatterplot1
+//     myCircles1.classed("selected", function (d) {
+//           return isBrushed(coordinates, x2(d.cost_energy), y2(d.percent_unafford_energy))
+//        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
-    myCircles2.classed("selected", function (d) {
-          return isBrushed(coordinates, x2(d.cost_nutrition), y2(d.percent_unafford_nutrition))
-       })
+//     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+//     myCircles2.classed("selected", function (d) {
+//           return isBrushed(coordinates, x2(d.cost_nutrition), y2(d.percent_unafford_nutrition))
+//        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
-    myCircles3.classed("selected", function (d) {
-          return isBrushed(coordinates, x2(d.cost_healthy), y2(d.percent_unafford_healthy))
-       })
-}
+//      //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+//     myCircles3.classed("selected", function (d) {
+//           return isBrushed(coordinates, x2(d.cost_healthy), y2(d.percent_unafford_healthy))
+//        })
+// }
 
-//call when scatterplot 2 is brushed
-function updateChart3(brushEvent) {
+// //call when scatterplot 2 is brushed
+// function updateChart3(brushEvent) {
 
-    //TODO: Find coordinates of brushed region
-    let coordinates = d3.brushSelection(this);
+//     //TODO: Find coordinates of brushed region
+//     let coordinates = d3.brushSelection(this);
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
-    myCircles1.classed("selected", function (d) {
-          return isBrushed(coordinates, x3(d.cost_energy), y3(d.percent_unafford_energy))
-       })
+//     //TODO: Give bold outline to all points within the brush region in Scatterplot1
+//     myCircles1.classed("selected", function (d) {
+//           return isBrushed(coordinates, x3(d.cost_energy), y3(d.percent_unafford_energy))
+//        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
-    myCircles2.classed("selected", function (d) {
-          return isBrushed(coordinates, x3(d.cost_nutrition), y3(d.percent_unafford_nutrition))
-       })
+//     //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+//     myCircles2.classed("selected", function (d) {
+//           return isBrushed(coordinates, x3(d.cost_nutrition), y3(d.percent_unafford_nutrition))
+//        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
-    myCircles3.classed("selected", function (d) {
-          return isBrushed(coordinates, x3(d.cost_healthy), y3(d.percent_unafford_healthy))
-       })
-}
+//      //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+//     myCircles3.classed("selected", function (d) {
+//           return isBrushed(coordinates, x3(d.cost_healthy), y3(d.percent_unafford_healthy))
+//        })
+// }
 
 
-//Finds dots within the brushed region
-function isBrushed(brush_coords, cx, cy) {
-  if (brush_coords === null) return;
+// //Finds dots within the brushed region
+// function isBrushed(brush_coords, cx, cy) {
+//   if (brush_coords === null) return;
 
-  var x0 = brush_coords[0][0],
-    x1 = brush_coords[1][0],
-    y0 = brush_coords[0][1],
-    y1 = brush_coords[1][1];
-  return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
-} });
+//   var x0 = brush_coords[0][0],
+//     x1 = brush_coords[1][0],
+//     y0 = brush_coords[0][1],
+//     y1 = brush_coords[1][1];
+//   return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
+// } 
+});
