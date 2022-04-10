@@ -1,8 +1,8 @@
 // Set dimensions and margins for plots
-const width = 1200;
-const height = 600;
-const margin = {left:250, right:50, bottom:50, top:50};
-const yTooltipOffset = 15;
+// const width = 1200;
+// const height = 600;
+// const margin = {left:250, right:50, bottom:50, top:50};
+// const yTooltipOffset = 15;
 
 //Bar Chart
 const heightbar = 2500;
@@ -19,11 +19,11 @@ const svg1 = d3.select("#csv-bar")
 
 // d3.csv("/data/clean_nutrition_df.csv").then((data) => {
       // Add x-axis
-      let x = d3.scaleLinear()
+let x = d3.scaleLinear()
                 // .domain([0, d3.max(data, function(d) {return d.cost_nutrition})])
-                .range([0, width]);
-      let xAxis = svg1.append("g")
-                      .attr("class", "myXaxis")
+          .range([0, width]);
+let xAxis = svg1.append("g")
+                .attr("class", "myXaxis")
 
 // maybe dont need this g stuff??
 
@@ -35,28 +35,28 @@ const svg1 = d3.select("#csv-bar")
       //             .style("text-anchor", "end");
 
        // Add y-axis
-      let y = d3.scaleBand()
-                .range([0, heightbar])
-                // .domain(data.map(function(d) {return d.country_name;}))
-                .padding(.1);
-      let yAxis = svg1.append("g")
-                      .attr("transform", "translate(0," + heightbar + ")")
+let y = d3.scaleBand()
+          .range([0, heightbar])
+          // .domain(data.map(function(d) {return d.country_name;}))
+          .padding(.1);
+let yAxis = svg1.append("g")
+          .attr("transform", "translate(0," + heightbar + ")")
 
 
-      function update(selectedVar) {
+  function update(selectedVar) {
 
-        d3.csv("/data/clean_nutrition_df.csv").then((data) => {
-            y.domain(data.map(function(d) {return d.country_name; }))
-            // yAxis.transition().duration(1000).call(d3.axisLeft(y))
+    d3.csv("/data/clean_nutrition_df.csv").then((data) => {
+        y.domain(data.map(function(d) {return d.country_name; }))
+        // yAxis.transition().duration(1000).call(d3.axisLeft(y))
 
-            x.domain([0, d3.max(data, function(d) {return +d[selectedVar] }) ]);
-            xAxis.transition().duration(1000).call(d3.axisTop(x));
+        x.domain([0, d3.max(data, function(d) {return +d[selectedVar] }) ]);
+        xAxis.transition().duration(1000).call(d3.axisTop(x));
 
 const tooltip1 = d3.select("#csv-bar")
-                    .append("div")
-                    .attr("id", "tooltip1")
-                    .select("opacity", 0)
-                    .attr("class", "tooltip");
+                .append("div")
+                .attr("id", "tooltip1")
+                .select("opacity", 0)
+                .attr("class", "tooltip");
 
 
 
@@ -77,50 +77,50 @@ const tooltip1 = d3.select("#csv-bar")
 // const mouseleave1 = function(event, d) {
 //     tooltip1.style("opacity", 0);
 // }
-            let u = svg1.selectAll("rect")
-                        .data(data)
+        let u = svg1.selectAll("rect")
+                    .data(data)
 
 
-            u.enter()
-             .append("rect")
-             .merge(u)
-             .transition()
-             .duration(1000)
-             .attr("y", function(d) {return y(d.country_name); })
-             .attr("x", 0) //function(d) {return x(d[selectedVar]); })
-             .attr("width", function(d) {return x(d[selectedVar]); }) //do i need to have width -
-             .attr("height", y.bandwidth())
-             .attr("fill", "#69b3a2")
+        u.enter()
+         .append("rect")
+         .merge(u)
+         .transition()
+         .duration(1000)
+         .attr("y", function(d) {return y(d.country_name); })
+         .attr("x", 0) //function(d) {return x(d[selectedVar]); })
+         .attr("width", function(d) {return x(d[selectedVar]); }) //do i need to have width -
+         .attr("height", y.bandwidth())
+         .attr("fill", "#69b3a2")
 
 
 
-            //  svg1.append("g")
-            // .attr("class", "x axis")
-            // .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-heightbar]));
+        //  svg1.append("g")
+        // .attr("class", "x axis")
+        // .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-heightbar]));
 
-            svg1.append("g")
-            .attr("class", "y axis")
-            .call(d3.axisLeft(y));
+        svg1.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(y));
 
 
-           //tried to add labels but not working :(
+       //tried to add labels but not working :(
 
-            // u.append("text")
-            //  .attr("class", "label")
-            //  .attr("y", function(d) {
-            //     return y(d.country_name) y.bandwidth() / 2 + 4;
-            //  })
-            //  .attr("x", function(d) {
-            //     return x(d[selectedVar]) + 3;
-            //  })
-            //  .text(function(d) {
-            //     return d[selectedVar];
-            //  })
+        // u.append("text")
+        //  .attr("class", "label")
+        //  .attr("y", function(d) {
+        //     return y(d.country_name) y.bandwidth() / 2 + 4;
+        //  })
+        //  .attr("x", function(d) {
+        //     return x(d[selectedVar]) + 3;
+        //  })
+        //  .text(function(d) {
+        //     return d[selectedVar];
+        //  })
 
-        })
-      }
+    })
+  }
 
-      update('cost_energy')
+  update('cost_energy')
 
       // svg1.selectAll(".bar")
       //       .data(data)
