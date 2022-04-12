@@ -4,6 +4,63 @@ const height = 600;
 const margin = {left:250, right:50, bottom:50, top:50};
 const yTooltipOffset = 15;
 
+//Legend
+
+
+const svg7 = d3.select("#legend")
+                .append("svg")
+                .attr("width", 450)
+                .attr("height", 300);
+
+svg7.append("text")
+    .attr("x", 190)
+    .attr("y", 70)
+    .text("Income Classification Legend")
+    .style("font-size", "20px")
+svg7.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 100)
+    .attr("r", 6)
+    .style("fill", "#FF176")
+svg7.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 130)
+    .attr("r", 6)
+    .style("fill", "#D1C4E9")
+svg7.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 160)
+    .attr("r", 6)
+    .style("fill", "#B2EBF2")
+svg7.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#A5D6A7")
+svg7.append("text")
+    .attr("x", 220)
+    .attr("y", 100)
+    .text("High-income")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 220)
+    .attr("y", 130)
+    .text("Upper-middle")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 220)
+    .attr("y", 160)
+    .text("Lower-middle")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 220)
+    .attr("y", 190)
+    .text("Low-Income")
+    .style("font-size", "15px")
+
+
+
+
 // SCATTERPLOT 1 TOOLTIP & MOUSEOVER EVENT
 
 //Tooltip Set-up
@@ -168,12 +225,14 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
     );
 
     // set the max possible y/height value based on highest data score
-    let maxY1 = d3.max(data, (d) => { return d.percent_unafford_energy; });
-
+   
+   let maxY1 = 80;
+   // let maxY1 = d3.max(data, (d) => { return d[yKey1];});
     // scale the chart based off of previously defined maxmimum y value
     y1 = d3.scaleLinear()
-                .domain([0, maxY1])
+                .domain([0,maxY1])
                 .range([height-margin.bottom,margin.top]);
+
 
     // add y-axis
     svg2.append("g")
@@ -200,6 +259,8 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                    .on("mouseover", mouseover2) // Calls mouseover2 event listener and link to event handler
                    .on("mousemove", mousemove2) // Calls mousemove2 event listener and link to event handler
                    .on("mouseleave", mouseleave2); // Calls mouseleave2 event listener and link to event handler
+
+
 
 // brush1 = d3.brush().extent([[0,0], [width, height]]);
 
