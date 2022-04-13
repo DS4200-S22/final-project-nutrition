@@ -1,10 +1,15 @@
 //Bar Chart
+
+
+
 const widthbar = 1000;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
 const yTooltipOffset2 = 15;
 
-const svg1 = d3.select("#csv-bar")
+
+
+var svg1 = d3.select("#csv-bar")
               .append("svg")
               .attr("width", widthbar+marginbar.left+marginbar.right)
               .attr("height", heightbar + marginbar.top + marginbar.bottom)
@@ -26,7 +31,13 @@ const svg1 = d3.select("#csv-bar")
                 .padding(.1);
       let yAxis = svg1.append("g")
                       .attr("transform", "translate(0," + heightbar + ")")
+      let title;
 
+const tooltip1 = d3.select("#csv-bar")
+                    .append("div")
+                    .attr("id", "tooltip1")
+                    .select("opacity", 0)
+                    .attr("class", "tooltip");
 
       function update(selectedVar) {
 
@@ -37,15 +48,10 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
             x.domain([0, d3.max(data, function(d) {return +d[selectedVar] }) ]);
             xAxis.transition().duration(1000).call(d3.axisTop(x));
 
-const tooltip1 = d3.select("#csv-bar")
-                    .append("div")
-                    .attr("id", "tooltip1")
-                    .select("opacity", 0)
-                    .attr("class", "tooltip");
 
 
 
-const mouseover1 = function(event, d) {
+var mouseover1 = function(event, d) {
     tooltip1.html("Country:" + d.country_name + "<br>" + function(d) {return (d[selectedVar])} + "<br>")
             .style("opacity", 1);
 };
@@ -62,6 +68,8 @@ const mousemove1 = function(event, d) {
 const mouseleave1 = function(event, d) {
     tooltip1.style("opacity", 0);
 }
+
+
 
 
 let bars = svg1.selectAll("rect")
@@ -93,7 +101,9 @@ let bars = svg1.selectAll("rect")
              let text = svg1.append("text")
                             .data(data)
 
-                            text.merge(text)
+                            text
+                            .exit()
+                            .remove()
                             .transition()
                             .duration(1000)
                             .attr("x", function(d) {return x(d[selectedVar]);})
@@ -103,6 +113,18 @@ let bars = svg1.selectAll("rect")
                             })
                             .style("fill", "black")
 
+
+
+         let text1 = svg1.append("text")
+          .attr("x", (widthbar / 2))             
+           .attr("y", 0 - (marginbar.top / 2))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+
+            text1.merge(text1)
+            .transition()
+            .duration(1000)
+            .text(selectedVar);
 
             // svg1
             // .append("text")

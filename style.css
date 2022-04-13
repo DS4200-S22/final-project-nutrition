@@ -25,6 +25,13 @@ h1, h2, h3 {
   fill: orange;
 }
 
+.selected {
+  fill: red;
+    opacity: 1 !important;
+    stroke:  black;
+    stroke-width: 4px;
+}
+
 .tooltip {
   position: absolute;
   text-align: center;

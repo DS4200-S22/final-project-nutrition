@@ -28,7 +28,7 @@
     </p>
 
     <p>Course Project as part of
-    	<a href='https://northeastern.instructure.com/courses/18721'>DS4200 S22: Information Visualization</a>, taught by
+      <a href='https://northeastern.instructure.com/courses/18721'>DS4200 S22: Information Visualization</a>, taught by
       <a href='https://www.khoury.northeastern.edu/home/amosca/'>Prof. Ab Mosca</a>,
       <a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>,
       <a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.
@@ -42,10 +42,9 @@
     </p>
 </div>
 
-
 <!-- Visualization -->
 <h1>Visualization</h1>
-<div id="map"></div>
+<div id="vis-map"></div>
 <div class="vis-holder" id="legend"></div>
 <div class="vis-holder" id="csv-scatter1"></div>
 <div class="vis-holder" id="csv-scatter2"></div>
@@ -55,7 +54,6 @@
 <button onclick="update('cost_healthy')">Recommended Healthy Diet</button>
 <div class='vis-holder' id="csv-bar"></div>
 <div class='vis-holder' id="vis-container"></div>
-
 
 <!-- <div class='vis-holder' id="csv-bar"></div> -->
 
@@ -106,6 +104,8 @@
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src='lib/d3.v6.1.1/d3.min.js'></script>
   <script src="//unpkg.com/topojson@3/dist/topojson.min.js"></script>
+  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js">
   <script src="lib/d3-geomap/d3-geomap.min.js"></script>
   <script src='js/geovisualization.js'></script>
   <script src='js/scatterplots.js'></script>
