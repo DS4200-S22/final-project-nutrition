@@ -247,7 +247,7 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
         .attr("font-size", '20px')
         .call((g) => g.append("text")
                      .attr("x", 0)
-                     .attr("y", margin.top)
+                     .attr("y", margin.top - 15)
                      .attr("fill", "black")
                      .attr("text-anchor", "end")
                      .text(yKey1));
