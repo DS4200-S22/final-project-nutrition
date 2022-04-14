@@ -27,10 +27,12 @@ h3 {
 	align-items: center;
 }
 
+/* Bar chart formatting */
 .bar {
   fill: orange;
 }
 
+/* Formatting for selected objects */
 .selected {
   fill: red;
     opacity: 1 !important;
@@ -38,6 +40,7 @@ h3 {
     stroke-width: 4px;
 }
 
+/* Tooltip formmating */
 .tooltip {
   position: absolute;
   text-align: center;
