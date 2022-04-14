@@ -88,7 +88,7 @@ svg10.append("text")
     .style("font-size", "15px")
 
 // Create bar chart with pre-defined size (from above)
-var svg1 = d3.select("#csv-bar")
+const svg1 = d3.select("#csv-bar")
               .append("svg")
               .attr("width", widthbar+marginbar.left+marginbar.right)
               .attr("height", heightbar + marginbar.top + marginbar.bottom)
