@@ -1,4 +1,4 @@
-// Set dimensions and margins for plots
+// Set dimensions and margins for scatterplots
 const width = 1200;
 const height = 600;
 const margin = {left:250, right:50, bottom:50, top:50};
@@ -14,19 +14,19 @@ const tooltip2 = d3.select("#csv-scatter1") // Selects all points
                 .style("opacity", 0) // Sets bar opacity to 0
                 .attr("class", "tooltip"); // Sets class to tooltip
 
-// Creates event handler that is triggered when mouse is over the point
+// Event handler for mouseover on point
 const mouseover2 = function(event, d) {
   tooltip2.html("Country: " + d.country_name + "<br> Cost of energy sufficient diet: $" + d.cost_energy + "0<br> Percentage of population unable to afford an energy sufficient diet: " + d.percent_unafford_energy + "%<br>") // Sets html to show name and score
           .style("opacity", 1); // Sets opacity to 1 so tooltip shows up
 }
 
-// Creates event handler that is triggered when mouse is moved over the bar
+// Event handler for mouseover bar
 const mousemove2 = function(event, d) {
   tooltip2.style("left", (event.pageX)+"px") // Set position of tooltip to be where x value of where mouse is plus offset
           .style("top", (event.pageY + yTooltipOffset) +"px"); // Set position of tooltip to be equal to y value of where mouse is plus offset
 }
 
-// Creates event handler that is triggered when mouse leaves the bar
+// Event handler for mouse leaving bar
 const mouseleave2 = function(event, d) {
   tooltip2.style("opacity", 0); // sets the tooltip opacity to 0 so it disappears
 }
@@ -42,19 +42,19 @@ const tooltip3 = d3.select("#csv-scatter2") // Selects all points
                 .style("opacity", 0) // Sets bar opacity to 0
                 .attr("class", "tooltip"); // Sets class to tooltip
 
-// Creates event handler that is triggered when mouse is over the point
+// Event handler for mouseover on point
 const mouseover3 = function(event, d) {
   tooltip3.html("Country: " + d.country_name + "<br> Cost of nutritious diet: $" + d.cost_nutrition + "0<br> Percentage of population unable to afford a nutritious diet: " + d.percent_unafford_nutrition + "%<br>") // Sets html to show name and score
           .style("opacity", 1); // Sets opacity to 1 so tooltip shows up
 }
 
-// Creates event handler that is triggered when mouse is moved over the bar
+// Event handler for mouseover bar
 const mousemove3 = function(event, d) {
   tooltip3.style("left", (event.pageX)+"px") // Set position of tooltip to be where x value of where mouse is plus offset
           .style("top", (event.pageY + yTooltipOffset) +"px"); // Set position of tooltip to be equal to y value of where mouse is plus offset
 }
 
-// Creates event handler that is triggered when mouse leaves the bar
+// Event handler for mouse leaving bar
 const mouseleave3 = function(event, d) {
   tooltip3.style("opacity", 0); // sets the tooltip opacity to 0 so it disappears
 }
@@ -70,35 +70,25 @@ const tooltip4 = d3.select("#csv-scatter3") // Selects all points
                 .style("opacity", 0) // Sets bar opacity to 0
                 .attr("class", "tooltip"); // Sets class to tooltip
 
-// Creates event handler that is triggered when mouse is over the point
+// Event handler for mouseover on point
 const mouseover4 = function(event, d) {
   tooltip4.html("Country: " + d.country_name + "<br> Cost of healthy diet: $" + d.cost_healthy + "0<br> Percentage of population unable to afford a healthy diet: " + d.percent_unafford_healthy + "%<br>") // Sets html to show name and score
           .style("opacity", 1); // Sets opacity to 1 so tooltip shows up
 }
 
-// Creates event handler that is triggered when mouse is moved over the bar
+// Event handler for mouseover bar
 const mousemove4 = function(event, d) {
   tooltip4.style("left", (event.pageX)+"px") // Set position of tooltip to be where x value of where mouse is plus offset
           .style("top", (event.pageY + yTooltipOffset) +"px"); // Set position of tooltip to be equal to y value of where mouse is plus offset
 }
 
-// Creates event handler that is triggered when mouse leaves the bar
+// Event handler for mouse leaving bar
 const mouseleave4 = function(event, d) {
   tooltip4.style("opacity", 0); // sets the tooltip opacity to 0 so it disappears
 }
 
 
-
-
-
-
-
-
-
-
-
-//SCATTERPLOT 1
-// Append svg object to the body of the page to house Scatterplot1
+// SCATTERPLOT 1
 const svg2 = d3.select("#csv-scatter1")
                   .append("svg")
                   .attr("width", width - margin.left - margin.right)
@@ -134,14 +124,13 @@ const svg4 = d3.select("#csv-scatter3")
 let brush3;
 let myCircles3;
 
-
+// Define colors for each category of scatterplot
 const color = d3.scaleOrdinal()
                 .domain(["High-income", "Upper-middle", "Lower-middle", "Low-income"])
                 .range(["#A5D6A7", "#D1C4E9", "#B2EBF2", "#FFCDD2"])
 
-//Legend
 
-
+// Create legend for scatterplot 1
 const svg7 = d3.select("#csv-scatter1")
                 .append("svg")
                 .attr("width", 300)
@@ -195,9 +184,7 @@ svg7.append("text")
     .style("font-size", "15px")
 
 
-//Legend
-
-
+// Create legend for scatterplot 2
 const svg8 = d3.select("#csv-scatter2")
                 .append("svg")
                 .attr("width", 300)
@@ -250,9 +237,7 @@ svg8.append("text")
     .text("Low-Income")
     .style("font-size", "15px")
 
-//Legend
-
-
+// Create legend for scatterplot 3
 const svg9 = d3.select("#csv-scatter3")
                 .append("svg")
                 .attr("width", 300)
@@ -305,27 +290,28 @@ svg9.append("text")
     .text("Low-Income")
     .style("font-size", "15px")
 
+// Read data from csv file
 d3.csv("data/clean_nutrition_df.csv").then((data) => {
 
     let x1, y1, x2, y2, x3, y3;
 
     let xKey1, yKey1, xKey2, yKey2, xKey3, yKey3;
 
-//SCATTERPLOT 1
+// Use data to plot scatterplot 1 points
 {
     xKey1 = "cost_energy";
     yKey1 = "percent_unafford_energy";
 
 
-    // set the max possible y/height value based on highest data score
+    // Set max y/height value based on highest data score
     let maxX1 = d3.max(data, (d) => { return d[xKey1]; });
 
-    // scale the chart's x-value based off of size of data
+    // Scale chart's x-value based off of size of data
     x1 = d3.scaleLinear()
                 .domain([0, maxX1])
                 .range([margin.left, width - margin.right]);
 
-    // add x-axis
+    // Add x-axis
     svg2.append("g")
        .attr("transform", `translate(0,${height - margin.bottom})`)
        .call(d3.axisBottom(x1))
@@ -336,18 +322,16 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                      .attr("fill", "black")
                      .attr("text-anchor", "end")
                      .text("Cost of Energy Sufficient Diet (US $)")
-    );18
-    // set the max possible y/height value based on highest data score
-
-   let maxY1 = 80;
-   // let maxY1 = d3.max(data, (d) => { return d[yKey1];});
-    // scale the chart based off of previously defined maxmimum y value
+    );
+    // Set max y/height value based on highest data score
+    let maxY1 = 80;
+ 
+    // Scale chart based off of previously defined max y value
     y1 = d3.scaleLinear()
                 .domain([0,maxY1])
                 .range([height-margin.bottom,margin.top]);
 
-
-    // add y-axis
+    // Add y-axis
     svg2.append("g")
         .attr("transform", `translate(${margin.left}, 0)`)
         .call(d3.axisLeft(y1))
@@ -361,13 +345,14 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                      .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
 
 
+// Define brushing functionality
 brush1 = d3.brush().extent([[0,0], [width, height]]);
 
 svg2.call(brush1
      .on("start", clear)
      .on("brush", updateChart1));
 
- // define csv bar chart
+    // Define scatter plots
     myCircles1 = svg2.append('g')
                      .selectAll("circle")
                      .data(data)
@@ -384,30 +369,25 @@ svg2.call(brush1
                    .on("mousemove", mousemove2) // Calls mousemove2 event listener and link to event handler
                    .on("mouseleave", mouseleave2); // Calls mouseleave2 event listener and link to event handler
 
-
-
-
-
-
 }
 
 
-// SCATTERPLOT 2
+// Use data to plot scatterplot 2 points
 {
     xKey2 = "cost_nutrition";
     yKey2 = "percent_unafford_nutrition";
 
-// set the max possible y/height value based on highest data score
+    // Set max y/height value based on highest data score
     let maxX2 = d3.max(data, (d) => { return d[xKey2];
      });
 
 
-// scale the chart's x-value based off of size of data
+    // Scale chart based off of previously defined max y value
     x2 = d3.scaleLinear()
                 .domain([0, maxX2])
                 .range([margin.left, width - margin.right]);
 
- // add x-axis
+    // Add x-axis
     svg3.append("g")
        .attr("transform", `translate(0,${height - margin.bottom})`)
        .call(d3.axisBottom(x2))
@@ -419,17 +399,17 @@ svg2.call(brush1
           .attr("text-anchor", "end")
           .text("Cost of Nutrient Adequate Diet (US $)"));
 
-// set the max possible y/height value based on highest data score
+    // Set max y/height value based on highest data score
     let maxY2 = d3.max(data, (d) => { return d[yKey2];
      });
 
-    // scale the chart based off of previously defined maxmimum y value
+    // Scale chart based off of previously defined max y value
     y2 = d3.scaleLinear()
                 .domain([0,maxY2])
                 .range([height-margin.bottom,margin.top]);
 
 
- // add y-axis
+    // Add y-axis
     svg3.append("g")
         .attr("transform", `translate(${margin.left}, 0)`)
         .call(d3.axisLeft(y2))
@@ -442,14 +422,14 @@ svg2.call(brush1
           .attr("transform", "translate(-100)rotate(-90)")
         .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
 
-
+// Define brushing functionality
 brush2 = d3.brush().extent([[0,0], [width, height]]);
 
 svg3.call(brush2
     .on("start", clear)
     .on("brush", updateChart2));
 
- // define csv bar chart
+    // Define scatter plots
     myCircles2 = svg3.append('g')
     .selectAll("circle")
        .data(data)
@@ -466,30 +446,27 @@ svg3.call(brush2
        .on("mousemove", mousemove3) // Calls mousemove3 event listener and link to event handler
        .on("mouseleave", mouseleave3);
 
-
-
-
 }
 
 
-// SCATTERPLOT 3
+// Use data to plot scatterplot 3 points
 {
     xKey3 = "cost_healthy";
     yKey3 = "percent_unafford_healthy";
 
 
-    // set the max possible y/height value based on highest data score
+    // Set max y/height value based on highest data score
     let maxX3 = d3.max(data, (d) => { return d[xKey3];
     });
 
 
-    // scale the chart's x-value based off of size of data
+    // Scale chart based off of previously defined max y value
     x3 = d3.scaleLinear()
                 .domain([0, maxX3])
                 .range([margin.left, width - margin.right]);
 
 
-// add x-axis
+    // Add x-axis
     svg4.append("g")
        .attr("transform", `translate(0,${height - margin.bottom})`)
        .call(d3.axisBottom(x3))
@@ -501,16 +478,16 @@ svg3.call(brush2
           .attr("text-anchor", "end")
           .text("Cost of Recommended Healthy Diet (US $)"));
 
- // set the max possible y/height value based on highest data score
+    // Set max y/height value based on highest data score
     let maxY3 = d3.max(data, (d) => { return d[yKey3];
      });
 
-    // scale the chart based off of previously defined maxmimum y value
+    // Scale chart based off of previously defined max y value
     y3 = d3.scaleLinear()
                 .domain([0,maxY3])
                 .range([height-margin.bottom,margin.top]);
 
-     // y-axis
+    // Add y-axis
     svg4.append("g")
         .attr("transform", `translate(${margin.left}, 0)`)
         .call(d3.axisLeft(y3))
@@ -523,14 +500,14 @@ svg3.call(brush2
           .attr("transform", "translate(-100)rotate(-90)")
         .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
 
-
+// Define brushing functionality
 brush3 = d3.brush().extent([[0,0], [width, height]]);
 
     svg4.call(brush3
         .on("start", clear)
         .on("brush", updateChart3));
 
-     // define csv bar chart
+    // Define scatter plots
      myCircles3 = svg4.append('g')
      .selectAll("circle")
        .data(data)
@@ -557,87 +534,79 @@ svg4.append("text")
 }
 
 
-//Brushing code
-
-// //call to remove existing brushes
+// Brushing code
+// Eemove existing brushes
 function clear() {
     svg2.call(brush1.move, null);
     svg3.call(brush2.move, null);
     svg4.call(brush3.move, null);
 }
 
-//call when scatterplot 1 is brushed
+// Scatterplot1 Brushing
 function updateChart1(brushEvent) {
 
     extent = brushEvent.selection;
 
-    // //TODO: Find coordinates of brushed region
-    // let coordinates = d3.brushSelection(this);
-
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
+    // Outline to points within the brush region in Scatterplot 1
     myCircles1.classed("selected", function (d) {
           return isBrushed(extent, x1(d.cost_energy), y1(d.percent_unafford_energy))
        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+    // Bold outline for all points in Scatterplot 2 corresponding to points within the brush region
     myCircles2.classed("selected", function (d) {
           return isBrushed(extent, x1(d.cost_energy), y1(d.percent_unafford_energy))
        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+    // Bold outline to all points in Scatterplot 3 corresponding to points within the brush region
     myCircles3.classed("selected", function (d) {
           return isBrushed(extent, x1(d.cost_energy), y1(d.percent_unafford_energy))
        })
 }
 
-//call when scatterplot 2 is brushed
+// Call when scatterplot 2 is brushed
 function updateChart2(brushEvent) {
 
      extent = brushEvent.selection;
-    // //TODO: Find coordinates of brushed region
-    // let coordinates = d3.brushSelection(this);
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
+    // Outline to points within the brush region in Scatterplot 2
     myCircles1.classed("selected", function (d) {
           return isBrushed(extent, x2(d.cost_nutrition), y2(d.percent_unafford_nutrition))
        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+    // Bold outline for all points in Scatterplot 2 corresponding to points within the brush region
     myCircles2.classed("selected", function (d) {
           return isBrushed(extent, x2(d.cost_nutrition), y2(d.percent_unafford_nutrition))
        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+     // Bold outline to all points in Scatterplot 2 corresponding to points within the brush region
     myCircles3.classed("selected", function (d) {
           return isBrushed(extent, x2(d.cost_nutrition), y2(d.percent_unafford_nutrition))
        })
 }
 
-//call when scatterplot 2 is brushed
+// Call when scatterplot 3 is brushed
 function updateChart3(brushEvent) {
 
     extent = brushEvent.selection;
-    // //TODO: Find coordinates of brushed region
-    // let coordinates = d3.brushSelection(this);
 
-    //TODO: Give bold outline to all points within the brush region in Scatterplot1
+    // Outline to points within the brush region in Scatterplot 3
     myCircles1.classed("selected", function (d) {
           return isBrushed(extent, x3(d.cost_healthy), y3(d.percent_unafford_healthy))
        })
 
-    //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
+    // Bold outline for all points in Scatterplot 3 corresponding to points within the brush region
     myCircles2.classed("selected", function (d) {
           return isBrushed(extent, x3(d.cost_healthy), y3(d.percent_unafford_healthy))
        })
 
-     //TODO: Give bold outline to all points in Scatterplot3 corresponding to points within the brush region in Scatterplot1
+    // Bold outline to all points in Scatterplot 3 corresponding to points within the brush region
     myCircles3.classed("selected", function (d) {
           return isBrushed(extent, x3(d.cost_healthy), y3(d.percent_unafford_healthy))
        })
 }
 
 
-//Finds dots within the brushed region
+// Finds dots within brushed region
 function isBrushed(brush_coords, cx, cy) {
   if (brush_coords === null) return;
 
