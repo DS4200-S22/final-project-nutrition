@@ -1,115 +1,124 @@
-(function() { 
-  // Map
-  const width_map = 2000;
-  const height_map = 2000;
+d3.csv("data/cleaned_nutrition_df.csv").then((data) => { 
 
-  // Set the initial svg
-  const map_id = "#vis-map";
-  let svg_map = d3.select(map_id)
-    .append("svg")
-    .attr("width", width_map)
-    .attr("height", height_map);
+  let svg = d3.select("#vis-map"),
+      width1 = +svg.attr("width"),
+      height1 = +svg.attr("height"),
+      margin1 = {top: 50, right: 100, bottom: 50, left: 50};
 
-  let g_map = svg_map.append("g");
+  // Map and projection
+  let path = d3.geoPath();
+
+  let projection= d3.geoMercator()
+                    .scale(100)
+                    .center([75, 0])
+                    .translate([width1 / 2, height1 /2]);
+
+  // Data and color scale
+  let data1 = new Map()
+  let colorScale = d3.scaleThreshold()
+                     .domain([0, 1, 2, 3, 4, 5])
+                     .range(d3.schemeBlues[6]);
+
+  // Load external data
+  let promises = []
+  promises.push(d3.json("geo-countries/data/countries.geojson"))
+  promises.push(d3.csv("data/cleaned_nutrition_df.csv", function(d) { data1.set(d.country_code, +d.cost_nutrition); }))
+
+  myDataPromises = Promise.all(promises).then(function(mydata) {
+  let topo = mydata[0]
+
+  // tooltip
+  let tooltip1 = d3.select(".vis-holder")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip1")
+      .style("background-color", "skyblue")
+      .style("border", "solid")
+      .style("border-width", "1px")
+      .style("border-radius", "5px")
+      .style("margin-right", "732px")
 
 
-  d3.json("geo-countries/data/countries.geojson").then(function(map_data) {
-    d3.csv('data/cleaned_nutrition_df.csv').then(function(data) {
-      // Map and projection
-      var projection = d3.geoMollweide()
-            .scale(width / 1.5 / Math.PI)
-            // .rotate([0, 0])
-            // .center([0, 0])
-            // .translate([width / 2, height / 2]);
-            .fitSize([800, 600], map_data); // Fit data to map size
-      var geoPath = d3.geoPath().projection(projection);
-      // var featureSize = d3.extent(countries.features,
-      //                     function(d) {return map_data.area(d)})
-      var countryColor = d3.scaleQuantize()
-                          .domain([d3.min(data, function(data) {return data.cost_nutrition}), d3.max(data, function(data) {return data.cost_nutrition})])
-                          .range(colorbrewer.Reds[7])
+  // legend
+  const legend_x = width1 - margin1.left - 200
+  const legend_y = height1 - 200
 
-      d3.selectAll(".cost_nutrition");
-      // d3.selectAll(".").on("change", filter_bars);
-      // filter_bars()
+  svg.append("g")
+      .attr("class", "legendQuant")
+      .attr("transform", "translate(" + legend_x + "," + legend_y+")")
+
+  let legendLinear = d3.legendColor()
+      .title("Cost of Nutritious Diet (USD/day)")
+      .shapeWidth(25)
+      .orient('vertical')
+      .scale(colorScale);
+
+  svg.select(".legendQuant")
+      .call(legendLinear)
 
 
-      // Draw the map
-      g_map.selectAll("path")
-          .data(map_data.features)
-          .enter()
-          .append("path")
-          // .attr("fill", "#b8b8b8")
-          .attr("d", d3.geoPath()
-              .projection(projection))
-          // .style("stroke", "black")
-          .style("fill", function(d) {
-              return countryColor(geoPath.area(d))
-          });
-          // .style("opacity", .3)
-    })
+  // let mouseOver = function(d, event) {
+  //     d3.selectAll(".country_name")
+  //         .transition()
+  //         .duration(200)
+  //     d3.select(this)
+  //         .transition()
+  //         .duration(200)
+  //         .style("stroke", "black")
+  //
+  //     // tooltip
+  //     tooltip1
+  //         .style("opacity", 1)
+  //         .style("visibility", "visible")
+  // }
+  //
+  // let mouseMove = function(d, event) {
+  //     tooltip1
+  //         .html("Country Name: " + event.properties.ADMIN + "<br>Diet Cost: " + event.total + " USD/day")
+  //         .style("text-align", "center")
+  // }
+  //
+  // let mouseLeave = function(d) {
+  //     d3.selectAll(".country_name")
+  //         .transition()
+  //         .duration(200)
+  //         // .style("opacity", .8)
+  //     d3.select(this)
+  //         .transition()
+  //         .duration(200)
+  //         .style("stroke", "transparent")
+  //
+  //     // tooltip
+  //     tooltip1
+  //         .transition()
+  //         .duration(200)
+  //         .style("opacity", 1)
+  // }
+
+  // Draw the map
+  svg.append("g")
+      .selectAll("path")
+      .data(topo.features)
+      .enter()
+      .append("path")
+
+      // draw each country
+      .attr("d", d3.geoPath()
+          .projection(projection)
+      )
+
+      // set the color of each country
+      .attr("fill", function (d) {
+          d.total = data1.get(d.properties.ISO_A3) || 0;
+          return colorScale(d.cost_nutrition);
+      })
+
+      .style("stroke", "transparent")
+      .attr("class", function(d) { return d.properties.ADMIN } )
+      .style("opacity", .8)
+      .on("mouseover", mouseOver)
+      .on("mouseleave", mouseLeave)
+      .on("mousemove", mouseMove)
+
   })
-})();
-
-// var format = function(d) {
-//     d = d * 1000
-//     return '$' + d3.format(',.02f')(d/1000);
-// }
-
-// var map = d3.choropleth()
-//     .geofile('lib/d3-geomap/topojson/world/countries.json')
-//     .colors(d3.schemeYlGnBu[9])
-//     .column('cost_nutrition')
-//     .duration(500)
-//     .format(format)
-//     .legend(true)
-//     .unitId('country_code');
-
-// d3.csv('data/cleaned_nutrition_df.csv').then(data => {
-//     var selection = d3.select('#map').datum(data);
-//     map.draw(selection);
-// });
-
-
-// // The svg
-// // var svg = d3.select("map"),
-// //   widthgeo = 1200,
-// //   heightgeo = 800;
-// //
-// // // Map and projection
-// // var path = d3.geoPath();
-// // var projection = d3.geoMercator()
-// //   .scale(70)
-// //   .center([0,20])
-// //   .translate([widthgeo / 2, heightgeo / 2]);
-// //
-// // // Data and color scale
-// // var data = d3.map();
-// // var colorScale = d3.scaleThreshold()
-// //   .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-// //   .range(d3.schemeBlues[7]);
-// //
-// // // Load external data and boot
-// // d3.queue()
-// //   .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-// //   .defer(d3.csv, "/data/clean_nutrition_df.csv", function(d) { data.set(d.country_code, d.cost_nutrition); })
-// //   .await(ready);
-// //
-// // function ready(error, topo) {
-// //
-// //   // Draw the map
-// //   svg.append("g")
-// //     .selectAll("path")
-// //     .data(topo.features)
-// //     .enter()
-// //     .append("path")
-// //       // draw each country
-// //       .attr("d", d3.geoPath()
-// //         .projection(projection)
-// //       )
-// //       // set the color of each country
-// //       .attr("fill", function (d) {
-// //         d.total = data.get(d.cost_nutrition) || 0;
-// //         return colorScale(d.total);
-// //       });
-// //     }
+})
