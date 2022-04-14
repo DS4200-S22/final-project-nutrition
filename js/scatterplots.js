@@ -336,8 +336,7 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                      .attr("fill", "black")
                      .attr("text-anchor", "end")
                      .text("Cost of Energy Sufficient Diet (US $)")
-    );
-
+    );18
     // set the max possible y/height value based on highest data score
 
    let maxY1 = 80;
@@ -358,7 +357,8 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                      .attr("y", margin.top - 15)
                      .attr("fill", "black")
                      .attr("text-anchor", "end")
-                     .text(yKey1));
+                      .attr("transform", "translate(-100)rotate(-90)")
+                     .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
 
 
 brush1 = d3.brush().extent([[0,0], [width, height]]);
@@ -439,7 +439,9 @@ svg2.call(brush1
           .attr("y", margin.top)
           .attr("fill", "black")
           .attr("text-anchor", "end")
-          .text(yKey2));
+          .attr("transform", "translate(-100)rotate(-90)")
+        .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
+
 
 brush2 = d3.brush().extent([[0,0], [width, height]]);
 
@@ -518,7 +520,9 @@ svg3.call(brush2
           .attr("y", margin.top)
           .attr("fill", "black")
           .attr("text-anchor", "end")
-          .text(yKey3));
+          .attr("transform", "translate(-100)rotate(-90)")
+        .text("Percent of Population Which Cannot Afford Diet (Diet > 65% of Income)"));
+
 
 brush3 = d3.brush().extent([[0,0], [width, height]]);
 
