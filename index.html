@@ -44,14 +44,21 @@
 
 <!-- Visualization -->
 <h1>Visualization</h1>
-<div id="vis-map"></div>
-<div class="vis-holder" id="legend"></div>
+<div id="vis-map">
+  <h3 class="map-title">Map of Nutrient Adequate Diet Costs by Country</h3>
+  <svg id="map-id" class="map" width="1200" height="600"></svg>
+</div>
+  <h3 class="scatter-title">% of Population Unable to Afford Energy Sufficient Diet by Cost of Energy Sufficent Diet</h3>
 <div class="vis-holder" id="csv-scatter1"></div>
+  <h3 class="scatter-title">% of Population Unable to Afford Nutrient Adequate Diet by Cost of Nutrient Adequate Diet</h3>
 <div class="vis-holder" id="csv-scatter2"></div>
+  <h3 class="scatter-title">% of Population Unable to Afford Healthy Diet by Cost of Healthy Diet</h3>
 <div class="vis-holder" id="csv-scatter3"></div>
 <button onclick="update('cost_energy')">Energy Sufficient Diet</button>
 <button onclick="update('cost_nutrition')">Nutrient Adequate Diet</button>
 <button onclick="update('cost_healthy')">Recommended Healthy Diet</button>
+  <h3 class="bar-title">Cost of Diet By Country</h3>
+<div class='legend' id="bar-legend"></div>
 <div class='vis-holder' id="csv-bar"></div>
 <div class='vis-holder' id="vis-container"></div>
 
@@ -106,6 +113,14 @@
       Button to Change Input Data in Barplot</a>
       by Yan Holtz is used to help make the bar chart update with the click of buttons.
     </li>
+    <li><a href='https://d3-graph-gallery.com/graph/choropleth_hover_effect.html'>
+      Choropleth map with hover effect</a>
+      by Yan Holtz is used to create the map visualization.
+    </li>
+    <li><a href='https://bl.ocks.org/larsenmtl/4c5ebcc9bca489f8f530bd163b35f39b'>
+      Getting hover-interaction and brushing to co-exist</a>
+      by larsenmtl is used to implement brushing and linking and hovering events simultaneously.
+    </li>
   </ul>
 </div>
 
@@ -118,6 +133,8 @@
   <script src='js/geovisualization.js'></script>
   <script src='js/scatterplots.js'></script>
   <script src='js/barchart.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js" integrity="sha512-5mCB0Kvv97yTzqo0174qxPjMisck/WlK51+mw/RV7UfYbtHI8LuLR82BzZuxHUKSfbh75u9cZHgUcqrZDaBJuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   <!-- <script src="/js/maps/choropleth/world.js"></script> -->
 
 </body>

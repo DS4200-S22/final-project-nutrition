@@ -1,12 +1,80 @@
 //Bar Chart
 
-
-
 const widthbar = 1000;
 const heightbar = 2500;
 const marginbar = {left:150, right:50, bottom:50, top:50};
 const yTooltipOffset2 = 15;
 
+const svg10 = d3.select("#bar-legend")
+                .append("svg")
+                .attr("width", 450)
+                .attr("height", 200);
+
+svg10.append("text")
+    .attr("x", 190)
+    .attr("y", 75)
+    .text("Range of Diet Costs Legend")
+    .style("font-size", "20px")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 100)
+    .attr("r", 6)
+    .style("fill", "#FADBD8")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 130)
+    .attr("r", 6)
+    .style("fill", "#F1948A")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 160)
+    .attr("r", 6)
+    .style("fill", "#E74C3C")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#B03A2E")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#78281F")
+svg10.append("circle")
+    .attr("cx", 200)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#641E16")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 105)
+    .text("$0 - $1 USD")
+    .style("font-size", "15px")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 135)
+    .text("$1 - $2 USD")
+    .style("font-size", "15px")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 165)
+    .text("$2 - $3 USD")
+    .style("font-size", "15px")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 195)
+    .text("$3 - $4 USD")
+    .style("font-size", "15px")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 195)
+    .text("$4 - $5 USD")
+    .style("font-size", "15px")
+svg10.append("text")
+    .attr("x", 220)
+    .attr("y", 195)
+    .text("$5 - $6 USD")
+    .style("font-size", "15px")
 
 
 var svg1 = d3.select("#csv-bar")
@@ -69,8 +137,14 @@ const mouseleave1 = function(event, d) {
     tooltip1.style("opacity", 0);
 }
 
+// bar color scale
+let colors = d3.scaleThreshold()
+                   .domain([0, 1, 2, 3, 4, 5, 6])
+                   .range(["#FADBD8","#F1948A", "#E74C3C", "#B03A2E", "#78281F", "#641E16"]);
 
-
+                   // const color = d3.scaleOrdinal()
+                   //                 .domain(["High-income", "Upper-middle", "Lower-middle", "Low-income"])
+                   //                 .range(["#A5D6A7", "#D1C4E9", "#B2EBF2", "#FFCDD2"])
 
 let bars = svg1.selectAll("rect")
                         .data(data)
@@ -85,7 +159,8 @@ let bars = svg1.selectAll("rect")
              .attr("x", 0)
              .attr("width", function(d) {return x(d[selectedVar]); })
              .attr("height", y.bandwidth())
-             .attr("fill", "#69b3a2")
+             .style("fill", function(d) {return colors(d[selectedVar]); })
+
 
 
             svg1.append("g")
@@ -115,16 +190,16 @@ let bars = svg1.selectAll("rect")
 
 
 
-         let text1 = svg1.append("text")
-          .attr("x", (widthbar / 2))             
-           .attr("y", 0 - (marginbar.top / 2))
-            .attr("text-anchor", "middle")  
-            .style("font-size", "16px") 
-
-            text1.merge(text1)
-            .transition()
-            .duration(1000)
-            .text(selectedVar);
+         // let text1 = svg1.append("text")
+         //  .attr("x", (widthbar / 2))
+         //   .attr("y", 0 - (marginbar.top / 2))
+         //    .attr("text-anchor", "middle")
+         //    .style("font-size", "16px")
+         //
+         //    text1.merge(text1)
+         //    .transition()
+         //    .duration(1000)
+         //    .text(selectedVar);
 
             // svg1
             // .append("text")

@@ -4,62 +4,6 @@ const height = 600;
 const margin = {left:250, right:50, bottom:50, top:50};
 const yTooltipOffset = 15;
 
-//Legend
-
-
-const svg7 = d3.select("#legend")
-                .append("svg")
-                .attr("width", 450)
-                .attr("height", 300);
-
-svg7.append("text")
-    .attr("x", 190)
-    .attr("y", 70)
-    .text("Income Classification Legend")
-    .style("font-size", "20px")
-svg7.append("circle")
-    .attr("cx", 200)
-    .attr("cy", 100)
-    .attr("r", 6)
-    .style("fill", "#F0B27A")
-svg7.append("circle")
-    .attr("cx", 200)
-    .attr("cy", 130)
-    .attr("r", 6)
-    .style("fill", "#D1C4E9")
-svg7.append("circle")
-    .attr("cx", 200)
-    .attr("cy", 160)
-    .attr("r", 6)
-    .style("fill", "#B2EBF2")
-svg7.append("circle")
-    .attr("cx", 200)
-    .attr("cy", 190)
-    .attr("r", 6)
-    .style("fill", "#A5D6A7")
-svg7.append("text")
-    .attr("x", 220)
-    .attr("y", 100)
-    .text("High-income")
-    .style("font-size", "15px")
-svg7.append("text")
-    .attr("x", 220)
-    .attr("y", 130)
-    .text("Upper-middle")
-    .style("font-size", "15px")
-svg7.append("text")
-    .attr("x", 220)
-    .attr("y", 160)
-    .text("Lower-middle")
-    .style("font-size", "15px")
-svg7.append("text")
-    .attr("x", 220)
-    .attr("y", 190)
-    .text("Low-Income")
-    .style("font-size", "15px")
-
-
-
 
 // SCATTERPLOT 1 TOOLTIP & MOUSEOVER EVENT
 
@@ -193,9 +137,173 @@ let myCircles3;
 
 const color = d3.scaleOrdinal()
                 .domain(["High-income", "Upper-middle", "Lower-middle", "Low-income"])
-                .range(["#F0B27A", "#D1C4E9", "#B2EBF2", "#A5D6A7"])
+                .range(["#A5D6A7", "#D1C4E9", "#B2EBF2", "#FFCDD2"])
+
+//Legend
 
 
+const svg7 = d3.select("#csv-scatter1")
+                .append("svg")
+                .attr("width", 300)
+                .attr("height", 600)
+                .attr("viewBox", [0, 0, 300, 200]);;
+
+svg7.append("text")
+    .attr("x", 40)
+    .attr("y", 75)
+    .text("Income Classification Legend")
+    .style("font-size", "20px")
+svg7.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 100)
+    .attr("r", 6)
+    .style("fill", "#A5D6A7")
+svg7.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 130)
+    .attr("r", 6)
+    .style("fill", "#D1C4E9")
+svg7.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 160)
+    .attr("r", 6)
+    .style("fill", "#B2EBF2")
+svg7.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#FFCDD2")
+svg7.append("text")
+    .attr("x", 80)
+    .attr("y", 105)
+    .text("High-income")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 80)
+    .attr("y", 135)
+    .text("Upper-middle")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 80)
+    .attr("y", 165)
+    .text("Lower-middle")
+    .style("font-size", "15px")
+svg7.append("text")
+    .attr("x", 80)
+    .attr("y", 195)
+    .text("Low-Income")
+    .style("font-size", "15px")
+
+
+//Legend
+
+
+const svg8 = d3.select("#csv-scatter2")
+                .append("svg")
+                .attr("width", 300)
+                .attr("height", 600)
+                .attr("viewBox", [0, 0, 300, 200]);;
+
+svg8.append("text")
+    .attr("x", 40)
+    .attr("y", 75)
+    .text("Income Classification Legend")
+    .style("font-size", "20px")
+svg8.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 100)
+    .attr("r", 6)
+    .style("fill", "#A5D6A7")
+svg8.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 130)
+    .attr("r", 6)
+    .style("fill", "#D1C4E9")
+svg8.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 160)
+    .attr("r", 6)
+    .style("fill", "#B2EBF2")
+svg8.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#FFCDD2")
+svg8.append("text")
+    .attr("x", 80)
+    .attr("y", 105)
+    .text("High-income")
+    .style("font-size", "15px")
+svg8.append("text")
+    .attr("x", 80)
+    .attr("y", 135)
+    .text("Upper-middle")
+    .style("font-size", "15px")
+svg8.append("text")
+    .attr("x", 80)
+    .attr("y", 165)
+    .text("Lower-middle")
+    .style("font-size", "15px")
+svg8.append("text")
+    .attr("x", 80)
+    .attr("y", 195)
+    .text("Low-Income")
+    .style("font-size", "15px")
+
+//Legend
+
+
+const svg9 = d3.select("#csv-scatter3")
+                .append("svg")
+                .attr("width", 300)
+                .attr("height", 600)
+                .attr("viewBox", [0, 0, 300, 200]);;
+
+svg9.append("text")
+    .attr("x", 40)
+    .attr("y", 75)
+    .text("Income Classification Legend")
+    .style("font-size", "20px")
+svg9.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 100)
+    .attr("r", 6)
+    .style("fill", "#A5D6A7")
+svg9.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 130)
+    .attr("r", 6)
+    .style("fill", "#D1C4E9")
+svg9.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 160)
+    .attr("r", 6)
+    .style("fill", "#B2EBF2")
+svg9.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .style("fill", "#FFCDD2")
+svg9.append("text")
+    .attr("x", 80)
+    .attr("y", 105)
+    .text("High-income")
+    .style("font-size", "15px")
+svg9.append("text")
+    .attr("x", 80)
+    .attr("y", 135)
+    .text("Upper-middle")
+    .style("font-size", "15px")
+svg9.append("text")
+    .attr("x", 80)
+    .attr("y", 165)
+    .text("Lower-middle")
+    .style("font-size", "15px")
+svg9.append("text")
+    .attr("x", 80)
+    .attr("y", 195)
+    .text("Low-Income")
+    .style("font-size", "15px")
 
 d3.csv("data/clean_nutrition_df.csv").then((data) => {
 
@@ -227,11 +335,11 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
                      .attr("y", margin.bottom - 4)
                      .attr("fill", "black")
                      .attr("text-anchor", "end")
-                     .text("Cost of Energy Sufficient Diet")
+                     .text("Cost of Energy Sufficient Diet (US $)")
     );
 
     // set the max possible y/height value based on highest data score
-   
+
    let maxY1 = 80;
    // let maxY1 = d3.max(data, (d) => { return d[yKey1];});
     // scale the chart based off of previously defined maxmimum y value
@@ -309,7 +417,7 @@ svg2.call(brush1
           .attr("y", margin.bottom - 4)
           .attr("fill", "black")
           .attr("text-anchor", "end")
-          .text("Cost of Nutrient Adequate Diet"));
+          .text("Cost of Nutrient Adequate Diet (US $)"));
 
 // set the max possible y/height value based on highest data score
     let maxY2 = d3.max(data, (d) => { return d[yKey2];
@@ -389,7 +497,7 @@ svg3.call(brush2
           .attr("y", margin.bottom - 4)
           .attr("fill", "black")
           .attr("text-anchor", "end")
-          .text("Cost of Recommended Healthy Diet"));
+          .text("Cost of Recommended Healthy Diet (US $)"));
 
  // set the max possible y/height value based on highest data score
     let maxY3 = d3.max(data, (d) => { return d[yKey3];
@@ -435,13 +543,13 @@ brush3 = d3.brush().extent([[0,0], [width, height]]);
        .on("mouseleave", mouseleave4);
 
 svg4.append("text")
-        .attr("x", (width / 2))             
+        .attr("x", (width / 2))
         .attr("y", 0 - (margin.top / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-        .style("text-decoration", "underline")  
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("text-decoration", "underline")
         .text("Percent of Population Which Cannot Afford Recommended Healthy Diet vs. Cost of Diet");
-    
+
 }
 
 
@@ -480,7 +588,7 @@ function updateChart1(brushEvent) {
 
 //call when scatterplot 2 is brushed
 function updateChart2(brushEvent) {
-    
+
      extent = brushEvent.selection;
     // //TODO: Find coordinates of brushed region
     // let coordinates = d3.brushSelection(this);
@@ -534,5 +642,5 @@ function isBrushed(brush_coords, cx, cy) {
       y0 = brush_coords[0][1],
       y1 = brush_coords[1][1];
   return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
-} 
+}
 });
