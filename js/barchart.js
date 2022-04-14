@@ -125,7 +125,7 @@ function update(selectedVar) {
     x.domain([0, d3.max(data, function(d) {return +d[selectedVar] }) ]);
     xAxis.transition().duration(1000).call(d3.axisTop(x));
 
-  var mouseover1 = function(event, d) {
+  let mouseover1 = function(event, d) {
     tooltip1.html("Country:" + d.country_name + "<br>" + function(d) {return (d[selectedVar])} + "<br>")
             .style("opacity", 1);
 };
