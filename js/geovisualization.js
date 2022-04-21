@@ -1,6 +1,6 @@
 
-const width1 = 1350;
-const height1 = 700;
+const width1 = 1300;
+const height1 = 550;
 
 
 // Import data from csv
@@ -8,9 +8,9 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 
   // Create chart and define size and margins
   let svg = d3.select("#map-id")
-            .attr("width", width1)// +svg.attr("width"),
-            .attr("height", height1) // +svg.attr("height"),
-            margin1 = {top: 50, right: 100, bottom: 40, left: 50};
+            .attr("width", width1)
+            .attr("height", height1)
+            margin1 = {top: 60, right: 100, bottom: 30, left: 50};
 
   // Define map type and projection
   let path = d3.geoPath();
@@ -27,7 +27,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
                      .domain([0, 1, 2, 3, 4, 5, 6])
                      .range(d3.schemeReds[7]);
 
-  const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
+  // const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
 
   // Load external geojson data for map, return selected features from csv dataset
   let promises = []
@@ -127,37 +127,38 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
       .on("mouseleave", mouseLeave)
       .on("mousemove", mouseMove);
 
-      svg.call(zoom);
+      // svg.call(zoom);
 
 
   })
 
-  function zoomed(event) {
-    const { transform } = event;
-    svg.attr("transform", transform);
-    svg.attr("stroke-width", 1 / transform.k);
-  }
+  // function zoomed(event) {
+  //   const { transform } = event;
+  //   svg.attr("transform", transform);
+  //   svg.attr("stroke-width", 1 / transform.k);
+  // }
 
 });
 
-// function that will open and switch to different pages
-function openPage(evt, pageName) {
-    // Declare all variables
-    let i, tabcontent, tablinks;
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+// Function opens a new tab with different visualizations
+function new_tab(event, name) {
+
+    let i, tabviz, clicktab;
+
+    // Hides all other elements
+    tabviz = document.getElementsByClassName("tabviz");
+    for (i = 0; i < tabviz.length; i++) {
+        tabviz[i].style.display = "none";
     }
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    // Makes elements with class="clicktab" inactive
+    clicktab = document.getElementsByClassName("clicktab");
+    for (i = 0; i < clicktab.length; i++) {
+        clicktab[i].className = clicktab[i].className.replace(" active", "");
     }
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(pageName).style.display = "block";
-    evt.currentTarget.className += " active";
+    // Makes current tab active
+    document.getElementById(name).style.display = "block";
+    event.currentTarget.className += " active";
 }
 
-// sets the map view to open on default
+// Sets the default tab to the map
 document.getElementById("defaultOpen").click();
