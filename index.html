@@ -42,27 +42,43 @@
     </p>
 </div>
 
+
 <!-- Visualization -->
 <h1>Visualization</h1>
-<div id="vis-map">
+
+<!-- Tab links -->
+<div class="tab">
+  <button class="tablinks" onclick="openPage(event, 'vis-map')" id = "defaultOpen">Nutrient Adequate Diet Costs by Country</button>
+  <button class="tablinks" onclick="openPage(event, 'scatterplots')">Comparison of Diets: Diet Costs vs. Population Unaffordability</button>
+  <button class="tablinks" onclick="openPage(event, 'csv-bar')">Cost of Diets By Country</button>
+</div>
+
+<!-- Tab content -->
+<div id="vis-map" class="tabcontent">
   <h3 class="map-title">Map of Nutrient Adequate Diet Costs by Country</h3>
   <svg id="map-id" class="map" width="1200" height="500"></svg>
+  <p></p>
 </div>
-  <h3 class="scatter-title">% of Population Unable to Afford Energy Sufficient Diet by Cost of Energy Sufficent Diet</h3>
-<div class="vis-holder" id="csv-scatter1"></div>
-  <h3 class="scatter-title">% of Population Unable to Afford Nutrient Adequate Diet by Cost of Nutrient Adequate Diet</h3>
-<div class="vis-holder" id="csv-scatter2"></div>
-  <h3 class="scatter-title">% of Population Unable to Afford Healthy Diet by Cost of Healthy Diet</h3>
-<div class="vis-holder" id="csv-scatter3"></div>
-  <h3 class="bar-title">Cost of Diet By Country</h3>
-<div class='legend' id="bar-legend"></div>
-<button onclick="update('cost_energy')">Energy Sufficient Diet</button>
-<button onclick="update('cost_nutrition')">Nutrient Adequate Diet</button>
-<button onclick="update('cost_healthy')">Recommended Healthy Diet</button>
-<div class='vis-holder' id="csv-bar"></div>
-<div class='vis-holder' id="vis-container"></div>
 
-<!-- <div class='vis-holder' id="csv-bar"></div> -->
+
+<div id="scatterplots" class="tabcontent">
+  <h3 class="scatter-title">% of Population Unable to Afford Energy Sufficient Diet by Cost of Energy Sufficent Diet</h3>
+  <div class="vis-holder" id="csv-scatter1"></div>
+  <h3 class="scatter-title">% of Population Unable to Afford Nutrient Adequate Diet by Cost of Nutrient Adequate Diet</h3>
+  <div class="vis-holder" id="csv-scatter2"></div>
+  <h3 class="scatter-title">% of Population Unable to Afford Healthy Diet by Cost of Healthy Diet</h3>
+  <div class="vis-holder" id="csv-scatter3"></div>
+  <p></p>
+</div>
+
+<div id="csv-bar" class="tabcontent">
+  <h3 class="bar-title">Cost of Diet By Country</h3>
+  <div class='legend' id="bar-legend"></div>
+  <button onclick="update('cost_energy')">Energy Sufficient Diet</button>
+  <button onclick="update('cost_nutrition')">Nutrient Adequate Diet</button>
+  <button onclick="update('cost_healthy')">Recommended Healthy Diet</button>
+  <p></p>
+</div>
 
 
 <!-- More writeup -->

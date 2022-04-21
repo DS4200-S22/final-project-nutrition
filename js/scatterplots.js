@@ -325,7 +325,7 @@ d3.csv("data/clean_nutrition_df.csv").then((data) => {
     );
     // Set max y/height value based on highest data score
     let maxY1 = 80;
- 
+
     // Scale chart based off of previously defined max y value
     y1 = d3.scaleLinear()
                 .domain([0,maxY1])

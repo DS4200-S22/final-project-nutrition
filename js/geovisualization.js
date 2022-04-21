@@ -1,14 +1,21 @@
+
+const width1 = 1350;
+const height1 = 700;
+
+
 // Import data from csv
 d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 
   // Create chart and define size and margins
-  let svg = d3.select("#map-id"),
-            width1 = +svg.attr("width"),
-            height1 = +svg.attr("height"),
-            margin1 = {top: 50, right: 100, bottom: 50, left: 50};
+  let svg = d3.select("#map-id")
+            .attr("width", width1)// +svg.attr("width"),
+            .attr("height", height1) // +svg.attr("height"),
+            margin1 = {top: 50, right: 100, bottom: 40, left: 50};
 
   // Define map type and projection
   let path = d3.geoPath();
+
+
   let projection= d3.geoMercator()
                     .scale(130)
                     .center([75, 0])
@@ -19,7 +26,9 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   let colorScale = d3.scaleThreshold()
                      .domain([0, 1, 2, 3, 4, 5, 6])
                      .range(d3.schemeReds[7]);
-  
+
+  const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
+
   // Load external geojson data for map, return selected features from csv dataset
   let promises = []
   promises.push(d3.json("geo-countries/data/countries.geojson"))
@@ -58,7 +67,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   svg.select(".legendQuant")
       .call(legendLinear)
 
-  
+
    // Define interactive functions
   let mouseOver = function(d, event) {
       d3.selectAll(".country_name")
@@ -93,6 +102,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
           .style("opacity", 1)
   }
 
+
   // Draw the world map
   svg.append("g")
       .selectAll("path")
@@ -108,14 +118,46 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
           d.cost_nutrition = data1.get(d.properties.ISO_A3) || 0;
           return colorScale(d.cost_nutrition);
       })
-      
+
       // Define styling for mouse interactions
       .style("stroke", "transparent")
       .attr("class", function(d) { return d.properties.ADMIN } )
       .style("opacity", .8)
       .on("mouseover", mouseOver)
       .on("mouseleave", mouseLeave)
-      .on("mousemove", mouseMove)
+      .on("mousemove", mouseMove);
+
+      svg.call(zoom);
+
 
   })
-})
+
+  function zoomed(event) {
+    const { transform } = event;
+    svg.attr("transform", transform);
+    svg.attr("stroke-width", 1 / transform.k);
+  }
+
+});
+
+// function that will open and switch to different pages
+function openPage(evt, pageName) {
+    // Declare all variables
+    let i, tabcontent, tablinks;
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(pageName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// sets the map view to open on default
+document.getElementById("defaultOpen").click();
