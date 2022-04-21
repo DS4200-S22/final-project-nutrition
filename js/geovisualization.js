@@ -27,8 +27,6 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
                      .domain([0, 1, 2, 3, 4, 5, 6])
                      .range(d3.schemeReds[7]);
 
-  // const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
-
   // Load external geojson data for map, return selected features from csv dataset
   let promises = []
   promises.push(d3.json("geo-countries/data/countries.geojson"))
@@ -127,16 +125,11 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
       .on("mouseleave", mouseLeave)
       .on("mousemove", mouseMove);
 
-      // svg.call(zoom);
-
+    
 
   })
 
-  // function zoomed(event) {
-  //   const { transform } = event;
-  //   svg.attr("transform", transform);
-  //   svg.attr("stroke-width", 1 / transform.k);
-  // }
+
 
 });
 
