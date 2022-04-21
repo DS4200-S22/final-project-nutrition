@@ -86,27 +86,37 @@
 
   <h1>Demo Video</h1>
 
-  <p>
-    Embed an MP4 demo video using the HTML5 &lt;video&gt; tag. For example, below is a screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3. <strong>Be sure to delete this filler text before your final submission!</strong>
-  </p>
 
-  <video controls width='100%'>
-    <source src='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4' type='video/mp4'>
-    <p>Your browser doesn't support HTML5 video. Here is
-     a <a href='http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4'>link to the video</a> instead.</p>
-  </video>
+
+  <iframe allowfullscreen="allowfullscreen" width="960" height="540" src="https://www.youtube.com/embed/4JxmlnEAPmo">
+  </iframe>
 
   <h1>Visualization Explanation</h1>
 
   <p>
-    Replace with an explanation of your visualization and linked presentation slides. <strong>Be sure to delete this filler text before your final submission!</strong>
+    Our first visualization includes a map, which depicts the costs of nutrient diet costs by country. As shown by the legend on the right side, darker shades of red indicate countries with more expensive diet costs and lighter shades indicate less expensive diet costs. Additionally, we implemented a hover feather that shows the country name and diet cost for each country that is selected by the user.  The map allows users obtain a visual understanding of how diet costs compare geographically around the world. The marks in this visualization are primarily areas (each country), and channels include color representing how expensive the average diet is, shapes representing each country, and area/length in the bar chart representing more specifically how much each diet costs.
   </p>
+  <p>
+    For our scatter plots, we compared the cost of each diet type to the percentage of the population which cannot afford the diet type, in which case the cost of the meal is greater than 65% of their income. We included a legend on the side which indicates the income classification level (high-income, upper-middle, lower-middle, low-income) corresponding to each country. Each scatter plot corresponds to one of the three different types of diets including energy sufficient, nutrient adequate, and recommended healthy diets.  We implemented an interactive hover feature which allows the user to view the country name, cost of diet, and percentage of population which cannot afford this diet. In addition, we implemented brushing and linking to make comparing the different diet types for each country easier. By selecting the data points, users can see the same countries selected on the other two scatter plots and easily compare their costs and population percentages accordingly. The marks are represented by points. Each points indicates a country on this scatter plot and the location indicates both how much the cost of an energy sufficient diet is as well as how much of the population can afford this diet. Channels include horizontal and vertical position as well as color. The horizontal and vertical position each have a different significance, both showing the comparison of the country’s cost of diet and the percentage of the population which can afford that diet. The colors indicate the income classification determined for that country and helps visualize the cost of meals and affordability of the population for countries in the same income category. The tasks that this visualization completes are look at comparing which countries have the most expensive diet, what percentage of the population can afford these meals, as well as which countries are wealthier.
+
+  </p>
+  <p>
+    Our third visualization includes a bar chart, which depicts the cost of each diet by country. Users can select a specific diet (energy sufficient, nutrient adequate, and recommended healthy diets) and the costs shown in the bar chart will adjust accordingly. Additionally, the colors of the bars are shown in varying shades of red and pink to indicate the range of diet cost each country corresponds to.  As shown in the legend, lighter shades of pink correspond to less expensive diet costs while darker shades of red/gray correspond to more expensive diet costs. This functionality allows users to visually gauge how diet costs compare from country to country. The marks in this visualization are 2D areas represented by the height of the bars. Channels in this visualization include shape, color (healthy being the darkest color) and also area of the bars.
+  </p>
+
+
+  
+  <p>
+    <a href="https://docs.google.com/presentation/d/1zsMBFYwDE-Z7xZbmZQEFKkdhfnjgKEUwsedkXclzL1Q/edit?usp=sharing"> Our Presentation</a>
+
+  </p>
+
+  <h1>Research Paper</h1>
+   <a href="DS4200_Project (5).pdf">Our Research Paper</a></p>
 
   <h1>Acknowledgments</h1>
 
-  <p>
-    Add to think list citations for any code, packages/libraries, text, images, designs, etc. that you leveraged. <strong>Be sure to delete this filler text before your final submission!</strong>
-  </p>
+
 
   <ul>
     <li><a href='https://d3js.org/'>
