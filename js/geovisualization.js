@@ -1,18 +1,18 @@
 
-const width1 = 1300;
-const height1 = 550;
+const widthmap = 1300;
+const heightmap = 550;
 
 
-// Import data from csv
+// here we import the data from our csv file 
 d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 
-  // Create chart and define size and margins
-  let svg = d3.select("#map-id")
-            .attr("width", width1)
-            .attr("height", height1)
-            margin1 = {top: 60, right: 100, bottom: 30, left: 50};
+  // svg created and defined width and heigh of the svg
+  let svgmap = d3.select("#map-id")
+                 .attr("width", widthmap)
+                 .attr("height", heightmap)
+                  margin1 = {top: 60, right: 100, bottom: 30, left: 50};
 
-  // Define map type and projection
+  // create the map
   let path = d3.geoPath();
 
 
@@ -21,21 +21,21 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
                     .center([75, 0])
                     .translate([width1 / 2, height1 /2]);
 
-  // Data and color scale for map
+  // add the data to the map and add a color gradient for the data
   let data1 = new Map()
   let colorScale = d3.scaleThreshold()
                      .domain([0, 1, 2, 3, 4, 5, 6])
                      .range(d3.schemeReds[7]);
 
-  // Load external geojson data for map, return selected features from csv dataset
-  let promises = []
-  promises.push(d3.json("geo-countries/data/countries.geojson"))
-  promises.push(d3.csv("data/cleaned_nutrition_df.csv", function(d) { data1.set(d.country_code, +d.cost_nutrition); }))
+  // Add the geojson data for coordinates of the map
+  let coordinate = []
+  coordinate.push(d3.json("geo-countries/data/countries.geojson"))
+  coordinate.push(d3.csv("data/cleaned_nutrition_df.csv", function(d) { data1.set(d.country_code, +d.cost_nutrition); }))
 
-  myDataPromises = Promise.all(promises).then(function(mydata) {
-  let topo = mydata[0]
+  dataPlotting = Promise.all(coordinate).then(function(geodata) {
+  let topography = geodata[0]
 
-  // Create tooltip
+  // Create tooltip for the map visualization
   let tooltip1 = d3.select("#vis-map")
       .append("div")
       .style("opacity", 0)
@@ -47,26 +47,8 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
       .style("margin-right", "732px")
 
 
-  // Define legend size
-  const legend_x = width1 - margin1.left - 250
-  const legend_y = height1 - 400
 
-  // Create legend for map
-  svg.append("g")
-      .attr("class", "legendQuant")
-      .attr("transform", "translate(" + legend_x + "," + legend_y+")")
-
-  let legendLinear = d3.legendColor()
-      .title("Cost of Diet (USD/day)")
-      .shapeWidth(25)
-      .orient('vertical')
-      .scale(colorScale);
-
-  svg.select(".legendQuant")
-      .call(legendLinear)
-
-
-   // Define interactive functions
+   // Add hover feature that shows data when hovering over countru
   let mouseOver = function(d, event) {
       d3.selectAll(".country_name")
           .transition()
@@ -101,34 +83,33 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   }
 
 
-  // Draw the world map
+  // Add the map created to the svg
   svg.append("g")
       .selectAll("path")
-      .data(topo.features)
+      .data(topography.features)
       .enter()
       .append("path")
       .attr("d", d3.geoPath()
           .projection(projection)
       )
 
-      // Define the color for each country based off of the cost of diet
-      .attr("fill", function (d) {
-          d.cost_nutrition = data1.get(d.properties.ISO_A3) || 0;
-          return colorScale(d.cost_nutrition);
-      })
-
-      // Define styling for mouse interactions
-      .style("stroke", "transparent")
-      .attr("class", function(d) { return d.properties.ADMIN } )
-      .style("opacity", .8)
-      .on("mouseover", mouseOver)
-      .on("mouseleave", mouseLeave)
-      .on("mousemove", mouseMove);
-
-    
-
+  // Adds color to the map based off nutrition data
+  .attr("fill", function (d) {
+      d.cost_nutrition = data1.get(d.properties.ISO_A3) || 0;
+      return colorScale(d.cost_nutrition);
   })
 
+  // Adds style for the mouse features of hovering
+  .style("stroke", "transparent")
+  .attr("class", function(d) { return d.properties.ADMIN } )
+  .style("opacity", .8)
+  .on("mouseover", mouseOver)
+  .on("mouseleave", mouseLeave)
+  .on("mousemove", mouseMove);
+
+  
+
+  })
 
 
 });
