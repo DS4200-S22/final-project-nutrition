@@ -10,7 +10,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   let svgmap = d3.select("#map-id")
                  .attr("width", widthmap)
                  .attr("height", heightmap)
-                  margin1 = {top: 60, right: 100, bottom: 30, left: 50};
+                  margin1 = {top: 60, right: 0, bottom: 30, left: 50};
 
   // create the map
   let path = d3.geoPath();
@@ -36,16 +36,14 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   let topography = geodata[0]
 
   // Create tooltip for the map visualization
-  let tooltip1 = d3.select("#vis-map")
+  let tooltip1 = d3.select("#hovermap")
       .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip1")
       .style("background-color", "papayawhip")
-      .style("border", "solid")
-      .style("border-width", "1px")
+      .style("font-weight", 700)
       .style("border-radius", "5px")
-      .style("margin-right", "732px")
-
+      .style("width", "1200px")
 
 
    // Add hover feature that shows data when hovering over countru
