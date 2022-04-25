@@ -19,7 +19,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   let projection= d3.geoMercator()
                     .scale(130)
                     .center([75, 0])
-                    .translate([width1 / 2, height1 /2]);
+                    .translate([widthmap / 2, heightmap /2]);
 
   // add the data to the map and add a color gradient for the data
   let data1 = new Map()
@@ -84,7 +84,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 
 
   // Add the map created to the svg
-  svg.append("g")
+  svgmap.append("g")
       .selectAll("path")
       .data(topography.features)
       .enter()
@@ -106,6 +106,43 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
   .on("mouseover", mouseOver)
   .on("mouseleave", mouseLeave)
   .on("mousemove", mouseMove);
+
+// Sets the default tab to the map
+document.getElementById("defaultOpen").click();
+
+const width1 = 1300; 
+const height1 = 550;
+const margin2 = {top: 5, right: 100, bottom: 50, left: 200};
+const legend_x = 150;
+const legend_y = 170;
+
+
+
+  // create the stuff
+   svgmap = d3.select("#map-id")
+            .attr("width", width1+margin2.left+margin2.right+legend_x)
+            .attr("height", height1+margin2.top+margin2.bottom + legend_y)
+            .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+
+// create the legend width and height
+  const legend_w = 150;
+  const legend_h = 710;
+
+  // Add the legend to the svg
+  svgmap.append("g")
+      .attr("class", "legendQuant")
+      .attr("transform", "translate(" + legend_w + "," + legend_h+")")
+
+  // Add legend information
+  let legend = d3.legendColor()
+      .title("Cost of Diet (USD/day)")
+      .shapeWidth(100)
+      .orient('horizontal')
+      .scale(colorScale);
+
+  svgmap.select(".legendQuant")
+      .call(legend)
 
   
 
@@ -134,5 +171,3 @@ function new_tab(event, name) {
     event.currentTarget.className += " active";
 }
 
-// Sets the default tab to the map
-document.getElementById("defaultOpen").click();
