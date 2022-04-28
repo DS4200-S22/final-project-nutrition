@@ -3,7 +3,7 @@ const widthmap = 1300;
 const heightmap = 550;
 
 
-// here we import the data from our csv file 
+// here we import the data from our csv file
 d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 
   // svg created and defined width and heigh of the svg
@@ -108,7 +108,7 @@ d3.csv("data/cleaned_nutrition_df.csv").then((data) => {
 // Sets the default tab to the map
 document.getElementById("defaultOpen").click();
 
-const width1 = 1300; 
+const width1 = 1300;
 const height1 = 550;
 const margin2 = {top: 5, right: 100, bottom: 50, left: 200};
 const legend_x = 150;
@@ -142,7 +142,7 @@ const legend_y = 170;
   svgmap.select(".legendQuant")
       .call(legend)
 
-  
+
 
   })
 
@@ -168,4 +168,3 @@ function new_tab(event, name) {
     document.getElementById(name).style.display = "block";
     event.currentTarget.className += " active";
 }
-
